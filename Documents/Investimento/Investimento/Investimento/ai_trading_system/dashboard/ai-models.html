@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Trading - AI Models</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="bg-gray-800 border-b border-gray-700">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-blue-400 hover:text-blue-300">
+                        <i class="fas fa-arrow-left mr-2"></i>Voltar ao Dashboard
+                    </a>
+                    <h1 class="text-2xl font-bold">🧠 AI Models</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Modelos Treinados -->
+        <div class="bg-gray-800 rounded-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Modelos Treinados</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- BTC Model -->
+                <div class="bg-gray-700 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-semibold">🤖 BTC_Model_v1</h3>
+                        <span class="px-2 py-1 bg-green-900 text-green-300 rounded text-sm">Trained</span>
+                    </div>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Accuracy:</span>
+                            <span class="text-green-400">78.5%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Profit:</span>
+                            <span class="text-green-400">+$1,234.56</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Last Update:</span>
+                            <span class="text-gray-300">15/01/2024</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="retrainModel('BTC_Model_v1')" class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm">
+                            <i class="fas fa-sync-alt mr-1"></i>Retrain
+                        </button>
+                        <button onclick="viewPerformance('BTC_Model_v1')" class="bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded text-sm">
+                            <i class="fas fa-chart-line mr-1"></i>Performance
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ETH Model -->
+                <div class="bg-gray-700 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-semibold">🤖 ETH_Model_v1</h3>
+                        <span class="px-2 py-1 bg-yellow-900 text-yellow-300 rounded text-sm">Training</span>
+                    </div>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Accuracy:</span>
+                            <span class="text-yellow-400">75.2%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Profit:</span>
+                            <span class="text-green-400">+$567.89</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Progress:</span>
+                            <span class="text-gray-300">65%</span>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-600 rounded-full h-2 mb-4">
+                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 65%"></div>
+                    </div>
+                    <button onclick="stopTraining('ETH_Model_v1')" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-sm">
+                        <i class="fas fa-stop mr-1"></i>Stop
+                    </button>
+                </div>
+
+                <!-- SOL Model -->
+                <div class="bg-gray-700 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-semibold">🤖 SOL_Model_v1</h3>
+                        <span class="px-2 py-1 bg-blue-900 text-blue-300 rounded text-sm">Ready</span>
+                    </div>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Accuracy:</span>
+                            <span class="text-green-400">82.1%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Profit:</span>
+                            <span class="text-green-400">+$2,345.67</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Last Update:</span>
+                            <span class="text-gray-300">14/01/2024</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="retrainModel('SOL_Model_v1')" class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm">
+                            <i class="fas fa-sync-alt mr-1"></i>Retrain
+                        </button>
+                        <button onclick="deployModel('SOL_Model_v1')" class="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-sm">
+                            <i class="fas fa-rocket mr-1"></i>Deploy
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configurações de Treinamento -->
+        <div class="bg-gray-800 rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Configurações de Treinamento</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Episódios de Treinamento</label>
+                    <input type="number" id="episodes" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2" value="1000" min="100" step="100">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Taxa de Aprendizado</label>
+                    <input type="number" id="learning-rate" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2" value="0.001" min="0.0001" max="0.1" step="0.0001">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Tamanho do Batch</label>
+                    <input type="number" id="batch-size" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2" value="64" min="16" max="512" step="16">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Tamanho da Memória</label>
+                    <input type="number" id="memory-size" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2" value="10000" min="1000" step="1000">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Gamma (Discount Factor)</label>
+                    <input type="number" id="gamma" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2" value="0.95" min="0.1" max="1.0" step="0.05">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Epsilon Inicial</label>
+                    <input type="number" id="epsilon" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2" value="1.0" min="0.01" max="1.0" step="0.01">
+                </div>
+            </div>
+            
+            <div class="flex space-x-4">
+                <button onclick="startTraining()" class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded-lg">
+                    <i class="fas fa-play mr-2"></i>Iniciar Treinamento
+                </button>
+                <button onclick="saveTrainingConfig()" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg">
+                    <i class="fas fa-save mr-2"></i>Salvar Configuração
+                </button>
+                <button onclick="loadTrainingConfig()" class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-lg">
+                    <i class="fas fa-folder-open mr-2"></i>Carregar Configuração
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function retrainModel(modelName) {
+            if (confirm(`Deseja retreinar o modelo ${modelName}?`)) {
+                alert(`Iniciando retreinamento do ${modelName}...`);
+                // Aqui você implementaria a lógica de retreinamento
+            }
+        }
+
+        function viewPerformance(modelName) {
+            alert(`Visualizando performance do ${modelName}...`);
+            // Aqui você implementaria a lógica para mostrar performance
+        }
+
+        function stopTraining(modelName) {
+            if (confirm(`Deseja parar o treinamento do ${modelName}?`)) {
+                alert(`Parando treinamento do ${modelName}...`);
+                // Aqui você implementaria a lógica para parar treinamento
+            }
+        }
+
+        function deployModel(modelName) {
+            if (confirm(`Deseja fazer deploy do ${modelName}?`)) {
+                alert(`Fazendo deploy do ${modelName}...`);
+                // Aqui você implementaria a lógica de deploy
+            }
+        }
+
+        function startTraining() {
+            const episodes = document.getElementById('episodes').value;
+            const learningRate = document.getElementById('learning-rate').value;
+            const batchSize = document.getElementById('batch-size').value;
+            
+            if (confirm(`Iniciar treinamento com ${episodes} episódios?`)) {
+                alert('Iniciando treinamento do modelo...');
+                // Aqui você implementaria a lógica de treinamento
+            }
+        }
+
+        function saveTrainingConfig() {
+            const config = {
+                episodes: document.getElementById('episodes').value,
+                learningRate: document.getElementById('learning-rate').value,
+                batchSize: document.getElementById('batch-size').value,
+                memorySize: document.getElementById('memory-size').value,
+                gamma: document.getElementById('gamma').value,
+                epsilon: document.getElementById('epsilon').value
+            };
+            
+            localStorage.setItem('training_config', JSON.stringify(config));
+            alert('Configuração salva!');
+        }
+
+        function loadTrainingConfig() {
+            const config = JSON.parse(localStorage.getItem('training_config') || '{}');
+            
+            if (config.episodes) document.getElementById('episodes').value = config.episodes;
+            if (config.learningRate) document.getElementById('learning-rate').value = config.learningRate;
+            if (config.batchSize) document.getElementById('batch-size').value = config.batchSize;
+            if (config.memorySize) document.getElementById('memory-size').value = config.memorySize;
+            if (config.gamma) document.getElementById('gamma').value = config.gamma;
+            if (config.epsilon) document.getElementById('epsilon').value = config.epsilon;
+            
+            alert('Configuração carregada!');
+        }
+
+        // Carregar configurações salvas
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTrainingConfig();
+        });
+    </script>
+</body>
+</html>

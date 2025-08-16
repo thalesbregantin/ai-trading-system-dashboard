@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Trading - Trades</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="bg-gray-800 border-b border-gray-700">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-blue-400 hover:text-blue-300">
+                        <i class="fas fa-arrow-left mr-2"></i>Voltar ao Dashboard
+                    </a>
+                    <h1 class="text-2xl font-bold">🔄 Trades</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="connection-status" class="px-3 py-1 rounded-full text-sm">
+                        <i class="fas fa-circle mr-1"></i>Conectando...
+                    </span>
+                    <button onclick="refreshData()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg">
+                        <i class="fas fa-sync-alt mr-2"></i>Atualizar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Filtros -->
+        <div class="bg-gray-800 rounded-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Filtros</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Par</label>
+                    <select id="symbol-filter" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2">
+                        <option value="">Todos</option>
+                        <option value="BTC/USDT">BTC/USDT</option>
+                        <option value="ETH/USDT">ETH/USDT</option>
+                        <option value="SOL/USDT">SOL/USDT</option>
+                        <option value="ADA/USDT">ADA/USDT</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Período</label>
+                    <select id="timeframe-filter" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2">
+                        <option value="1H">1H</option>
+                        <option value="4H">4H</option>
+                        <option value="1D">1D</option>
+                        <option value="1W">1W</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Tipo</label>
+                    <select id="type-filter" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2">
+                        <option value="">Todos</option>
+                        <option value="BUY">BUY</option>
+                        <option value="SELL">SELL</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Status</label>
+                    <select id="status-filter" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2">
+                        <option value="">Todos</option>
+                        <option value="executed">Executado</option>
+                        <option value="pending">Pendente</option>
+                        <option value="cancelled">Cancelado</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Métricas -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-gray-800 rounded-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Total Trades</p>
+                        <p id="total-trades" class="text-2xl font-bold">0</p>
+                    </div>
+                    <i class="fas fa-chart-line text-blue-400 text-2xl"></i>
+                </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Win Rate</p>
+                        <p id="win-rate" class="text-2xl font-bold">0%</p>
+                    </div>
+                    <i class="fas fa-percentage text-green-400 text-2xl"></i>
+                </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Total Profit</p>
+                        <p id="total-profit" class="text-2xl font-bold">$0.00</p>
+                    </div>
+                    <i class="fas fa-dollar-sign text-yellow-400 text-2xl"></i>
+                </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Avg Trade</p>
+                        <p id="avg-trade" class="text-2xl font-bold">$0.00</p>
+                    </div>
+                    <i class="fas fa-calculator text-purple-400 text-2xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Trades -->
+        <div class="bg-gray-800 rounded-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Histórico de Trades</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-700">
+                            <th class="text-left py-3 px-4">Data/Hora</th>
+                            <th class="text-left py-3 px-4">Par</th>
+                            <th class="text-left py-3 px-4">Tipo</th>
+                            <th class="text-left py-3 px-4">Quantidade</th>
+                            <th class="text-left py-3 px-4">Preço</th>
+                            <th class="text-left py-3 px-4">Profit/Loss</th>
+                            <th class="text-left py-3 px-4">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="trades-table-body">
+                        <tr>
+                            <td colspan="7" class="text-center py-8 text-gray-400">
+                                <i class="fas fa-spinner fa-spin mr-2"></i>Carregando trades...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Gráfico de Performance -->
+        <div class="bg-gray-800 rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Performance Acumulada</h2>
+            <canvas id="performance-chart" width="400" height="200"></canvas>
+        </div>
+    </main>
+
+    <script>
+        const apiBaseUrl = 'http://localhost:5000/api';
+        let performanceChart;
+
+        // Verificar conexão com API
+        async function checkApiConnection() {
+            try {
+                const response = await fetch(`${apiBaseUrl}/status`);
+                const data = await response.json();
+                
+                const statusElement = document.getElementById('connection-status');
+                if (data.success) {
+                    statusElement.innerHTML = '<i class="fas fa-circle text-green-400 mr-1"></i>Conectado';
+                    statusElement.className = 'px-3 py-1 rounded-full text-sm bg-green-900 text-green-300';
+                } else {
+                    statusElement.innerHTML = '<i class="fas fa-circle text-red-400 mr-1"></i>Desconectado';
+                    statusElement.className = 'px-3 py-1 rounded-full text-sm bg-red-900 text-red-300';
+                }
+            } catch (error) {
+                const statusElement = document.getElementById('connection-status');
+                statusElement.innerHTML = '<i class="fas fa-circle text-red-400 mr-1"></i>Erro de Conexão';
+                statusElement.className = 'px-3 py-1 rounded-full text-sm bg-red-900 text-red-300';
+            }
+        }
+
+        // Carregar dados de trades
+        async function loadTradesData() {
+            try {
+                const response = await fetch(`${apiBaseUrl}/trades`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayTrades(data.data);
+                    updateMetrics(data.data);
+                    updatePerformanceChart(data.data);
+                } else {
+                    displayDemoTrades();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar trades:', error);
+                displayDemoTrades();
+            }
+        }
+
+        // Exibir trades reais
+        function displayTrades(trades) {
+            const tbody = document.getElementById('trades-table-body');
+            
+            if (trades.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center py-8 text-gray-400">
+                            <i class="fas fa-info-circle mr-2"></i>Nenhum trade encontrado
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = trades.map(trade => `
+                <tr class="border-b border-gray-700 hover:bg-gray-700">
+                    <td class="py-3 px-4">${new Date(trade.timestamp).toLocaleString()}</td>
+                    <td class="py-3 px-4">${trade.symbol}</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 rounded text-sm ${trade.side === 'BUY' ? 'bg-green-900 text-green-300' : 'bg-red-900 text-red-300'}">
+                            ${trade.side}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4">${trade.amount}</td>
+                    <td class="py-3 px-4">$${trade.price}</td>
+                    <td class="py-3 px-4">
+                        <span class="${trade.profit >= 0 ? 'text-green-400' : 'text-red-400'}">
+                            ${trade.profit >= 0 ? '+' : ''}$${trade.profit.toFixed(2)}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 rounded text-sm bg-blue-900 text-blue-300">
+                            ${trade.status}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Exibir trades de demonstração
+        function displayDemoTrades() {
+            const demoTrades = [
+                {
+                    timestamp: new Date(Date.now() - 3600000),
+                    symbol: 'BTC/USDT',
+                    side: 'BUY',
+                    amount: 0.001,
+                    price: 42150.50,
+                    profit: 25.30,
+                    status: 'executed'
+                },
+                {
+                    timestamp: new Date(Date.now() - 7200000),
+                    symbol: 'ETH/USDT',
+                    side: 'SELL',
+                    amount: 0.05,
+                    price: 2250.75,
+                    profit: -12.45,
+                    status: 'executed'
+                },
+                {
+                    timestamp: new Date(Date.now() - 10800000),
+                    symbol: 'SOL/USDT',
+                    side: 'BUY',
+                    amount: 2.5,
+                    price: 98.20,
+                    profit: 45.80,
+                    status: 'executed'
+                }
+            ];
+
+            displayTrades(demoTrades);
+            updateMetrics(demoTrades);
+            updatePerformanceChart(demoTrades);
+        }
+
+        // Atualizar métricas
+        function updateMetrics(trades) {
+            const totalTrades = trades.length;
+            const winningTrades = trades.filter(t => t.profit > 0).length;
+            const winRate = totalTrades > 0 ? (winningTrades / totalTrades * 100).toFixed(1) : 0;
+            const totalProfit = trades.reduce((sum, t) => sum + t.profit, 0);
+            const avgTrade = totalTrades > 0 ? totalProfit / totalTrades : 0;
+
+            document.getElementById('total-trades').textContent = totalTrades;
+            document.getElementById('win-rate').textContent = `${winRate}%`;
+            document.getElementById('total-profit').textContent = `$${totalProfit.toFixed(2)}`;
+            document.getElementById('avg-trade').textContent = `$${avgTrade.toFixed(2)}`;
+        }
+
+        // Atualizar gráfico de performance
+        function updatePerformanceChart(trades) {
+            const ctx = document.getElementById('performance-chart').getContext('2d');
+            
+            if (performanceChart) {
+                performanceChart.destroy();
+            }
+
+            // Calcular performance acumulada
+            let cumulativeProfit = 0;
+            const performanceData = trades.map(trade => {
+                cumulativeProfit += trade.profit;
+                return {
+                    x: new Date(trade.timestamp),
+                    y: cumulativeProfit
+                };
+            });
+
+            performanceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Profit Acumulado',
+                        data: performanceData,
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'day'
+                            },
+                            grid: {
+                                color: 'rgba(75, 85, 99, 0.2)'
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(75, 85, 99, 0.2)'
+                            },
+                            ticks: {
+                                color: '#9ca3af',
+                                callback: function(value) {
+                                    return '$' + value.toFixed(2);
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#9ca3af'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Atualizar dados
+        function refreshData() {
+            loadTradesData();
+        }
+
+        // Aplicar filtros
+        function applyFilters() {
+            // Implementar lógica de filtros aqui
+            loadTradesData();
+        }
+
+        // Event listeners
+        document.getElementById('symbol-filter').addEventListener('change', applyFilters);
+        document.getElementById('timeframe-filter').addEventListener('change', applyFilters);
+        document.getElementById('type-filter').addEventListener('change', applyFilters);
+        document.getElementById('status-filter').addEventListener('change', applyFilters);
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            checkApiConnection();
+            loadTradesData();
+            
+            // Atualizar a cada 30 segundos
+            setInterval(() => {
+                checkApiConnection();
+                loadTradesData();
+            }, 30000);
+        });
+    </script>
+</body>
+</html>
