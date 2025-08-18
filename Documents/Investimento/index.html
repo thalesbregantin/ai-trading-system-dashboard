@@ -466,43 +466,43 @@
 
         <!-- Metrics -->
         <div class="metrics-grid fade-in">
-            <div class="metric-card">
-                <div class="metric-value" id="portfolio-value">$98.60</div>
-                <div class="metric-label">Portfolio Value</div>
-                <div class="metric-change">
-                    <span>💰 Seu saldo real</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill positive" style="width: 100%"></div>
-                </div>
-            </div>
+                         <div class="metric-card">
+                 <div class="metric-value" id="portfolio-value">$98.60</div>
+                 <div class="metric-label">Portfolio Value</div>
+                 <div class="metric-change">
+                     <span>💰 Seu saldo real</span>
+                 </div>
+                 <div class="progress-bar">
+                     <div class="progress-fill positive" style="width: 100%"></div>
+                 </div>
+             </div>
 
-            <div class="metric-card">
-                <div class="metric-value" id="today-profit">$0.00</div>
-                <div class="metric-label">Today's Profit</div>
-                <div class="metric-change">
-                    <span>📊 Sem trades hoje</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 0%"></div>
-                </div>
-            </div>
+             <div class="metric-card">
+                 <div class="metric-value" id="today-profit">$0.00</div>
+                 <div class="metric-label">Today's Profit</div>
+                 <div class="metric-change">
+                     <span>📊 Sem trades hoje</span>
+                 </div>
+                 <div class="progress-bar">
+                     <div class="progress-fill" style="width: 0%"></div>
+                 </div>
+             </div>
 
-            <div class="metric-card">
-                <div class="metric-value" id="win-rate">0.0%</div>
-                <div class="metric-label">Win Rate</div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 0%"></div>
-                </div>
-            </div>
+             <div class="metric-card">
+                 <div class="metric-value" id="win-rate">0.0%</div>
+                 <div class="metric-label">Win Rate</div>
+                 <div class="progress-bar">
+                     <div class="progress-fill" style="width: 0%"></div>
+                 </div>
+             </div>
 
-            <div class="metric-card">
-                <div class="metric-value" id="sharpe-ratio">0.00</div>
-                <div class="metric-label">Sharpe Ratio</div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 0%"></div>
-                </div>
-            </div>
+             <div class="metric-card">
+                 <div class="metric-value" id="sharpe-ratio">0.00</div>
+                 <div class="metric-label">Sharpe Ratio</div>
+                 <div class="progress-bar">
+                     <div class="progress-fill" style="width: 0%"></div>
+                 </div>
+             </div>
         </div>
 
         <!-- Charts Section -->
@@ -714,10 +714,9 @@
             Plotly.newPlot('trading-chart', [trace1, trace2, trace3, trace4], layout);
         }
 
-        // Use Railway URL in production, localhost in development
-        const apiBaseUrl = window.location.hostname === 'localhost' 
-            ? 'http://localhost:5000/api' 
-            : 'https://ai-trading-system-dashboard-production.up.railway.app/api';
+        // Use dados reais da Binance
+        const binanceApiKey = 'Gm5VZwg3DzYD7FQXiocUsnhU7CYh5omlb8phvcxuEkec8YgVHHk0AhhyCxMRr80b';
+        const binanceSecretKey = 'VxRa16ZG8FaA854JsviUWBHsg3Sbw46WlIjwUsXlR67DM0wUwQhGLtvtN00U0Vch';
         let realData = null;
 
         async function loadRealData() {
@@ -765,16 +764,6 @@
                 document.getElementById('today-profit').textContent = '$0.00';
                 document.getElementById('win-rate').textContent = '0.0%';
                 document.getElementById('sharpe-ratio').textContent = '0.00';
-
-                const sma20 = 42356.78 + (Math.random() - 0.5) * 500;
-                const sma50 = 41987.32 + (Math.random() - 0.5) * 300;
-                const rsi = 56.4 + (Math.random() - 0.5) * 10;
-                const momentum = (Math.random() - 0.5) * 4;
-
-                document.getElementById('sma-20').textContent = `$${sma20.toFixed(2)}`;
-                document.getElementById('sma-50').textContent = `$${sma50.toFixed(2)}`;
-                document.getElementById('rsi').textContent = rsi.toFixed(1);
-                document.getElementById('momentum').textContent = `${momentum > 0 ? '+' : ''}${momentum.toFixed(1)}%`;
             }
         }
 

@@ -1,0 +1,19 @@
+{
+  "worker_id": 2,
+  "trading_pairs": [
+    "XRP-USD",
+    "ADA-USD",
+    "DOGE-USD",
+    "TRX-USD"
+  ],
+  "episodes_per_pair": 10,
+  "training_params": {
+    "learning_rate": 0.001,
+    "gamma": 0.95,
+    "epsilon_start": 1.0,
+    "epsilon_min": 0.01,
+    "epsilon_decay": 0.997,
+    "batch_size": 32,
+    "memory_size": 10000
+  }
+}
