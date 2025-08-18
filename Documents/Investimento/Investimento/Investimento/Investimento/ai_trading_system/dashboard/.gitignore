@@ -1,0 +1,108 @@
+# 🔐 ARQUIVOS SENSÍVEIS - NUNCA SUBIR NO GITHUB!
+firebase-service-account.json
+.env
+*.key
+*.pem
+secrets.json
+config.json
+
+# 🔑 CHAVES DA BINANCE
+binance_keys.txt
+api_keys.txt
+credentials.json
+
+# 📁 PASTAS PYTHON
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 🐍 VIRTUAL ENVIRONMENTS
+.venv/
+venv/
+ENV/
+env/
+tf_env/
+
+# 📊 DADOS E LOGS
+*.log
+logs/
+data/
+models/
+results/
+*.csv
+*.xlsx
+*.json
+!package.json
+!requirements*.txt
+
+# 🔧 CONFIGURAÇÕES
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 🖥️ SISTEMA
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 🚀 DEPLOY
+.railway/
+.vercel/
+.netlify/
+
+# 📱 STREAMLIT
+.streamlit/
+
+# 🐳 DOCKER
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# 📝 TEMPORÁRIOS
+*.tmp
+*.temp
+temp/
+tmp/
+
+# 🔍 CACHE
+.cache/
+cache/
+*.cache
+
+# 📦 NODE (se usar)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 🎯 ESPECÍFICO DO PROJETO
+# Manter apenas os arquivos necessários para deploy
+!index.html
+!trades.html
+!settings.html
+!ai-models.html
+!docs.html
+!cloud_api_server.py
+!firebase_config.py
+!requirements-cloud.txt
+!DEPLOY_GUIDE.md
+!README.md

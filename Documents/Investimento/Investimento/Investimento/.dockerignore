@@ -1,0 +1,16 @@
+.venv
+__pycache__/
+.vscode/
+.git/
+*.csv
+*.log
+*.out
+*.err
+*.pkl
+*.feather
+*.parquet
+results/
+backtests/
+data/
+downloads/
+paper_state.json

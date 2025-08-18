@@ -1,0 +1,27 @@
+{
+  "general": {
+    "testnet_mode": true,
+    "live_trading": true,
+    "log_level": "INFO"
+  },
+  "ai_trader": {
+    "episodes": 5,
+    "window_size": 10,
+    "batch_size": 32,
+    "learning_rate": 0.001
+  },
+  "hybrid_system": {
+    "ai_weight": 0.6,
+    "momentum_weight": 0.4,
+    "sma_short": 20,
+    "sma_long": 50
+  },
+  "trading": {
+    "trading_pairs": [
+      "BTC/USDT"
+    ],
+    "max_position_size": 0.02,
+    "min_trade_amount": 10,
+    "initial_capital": 100
+  }
+}

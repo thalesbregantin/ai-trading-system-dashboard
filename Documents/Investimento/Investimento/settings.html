@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Trading - Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="bg-gray-800 border-b border-gray-700">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-blue-400 hover:text-blue-300">
+                        <i class="fas fa-arrow-left mr-2"></i>Voltar ao Dashboard
+                    </a>
+                    <h1 class="text-2xl font-bold">⚙️ Settings</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- API Keys -->
+        <div class="bg-gray-800 rounded-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">🔑 API Keys</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Binance API Key</label>
+                    <input type="password" id="api-key" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Binance Secret Key</label>
+                    <input type="password" id="secret-key" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2">
+                </div>
+            </div>
+            <button onclick="saveApiKeys()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg">
+                <i class="fas fa-save mr-2"></i>Salvar
+            </button>
+        </div>
+
+        <!-- Trading Settings -->
+        <div class="bg-gray-800 rounded-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">💰 Trading</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Capital Inicial (USDT)</label>
+                    <input type="number" id="initial-capital" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2" value="1000">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Stop Loss (%)</label>
+                    <input type="number" id="stop-loss" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2" value="5.0">
+                </div>
+            </div>
+            <button onclick="saveTradingSettings()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg">
+                <i class="fas fa-save mr-2"></i>Salvar
+            </button>
+        </div>
+
+        <!-- Appearance -->
+        <div class="bg-gray-800 rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">🎨 Aparência</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Tema</label>
+                    <select id="theme" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2">
+                        <option value="dark">Escuro</option>
+                        <option value="light">Claro</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Idioma</label>
+                    <select id="language" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2">
+                        <option value="pt">Português</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+            </div>
+            <button onclick="saveAppearanceSettings()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg">
+                <i class="fas fa-save mr-2"></i>Salvar
+            </button>
+        </div>
+    </main>
+
+    <script>
+        function saveApiKeys() {
+            const apiKey = document.getElementById('api-key').value;
+            const secretKey = document.getElementById('secret-key').value;
+            
+            if (!apiKey || !secretKey) {
+                alert('Por favor, preencha ambas as chaves');
+                return;
+            }
+            
+            localStorage.setItem('binance_api_key', apiKey);
+            localStorage.setItem('binance_secret_key', secretKey);
+            alert('Chaves salvas com sucesso!');
+        }
+
+        function saveTradingSettings() {
+            const initialCapital = document.getElementById('initial-capital').value;
+            const stopLoss = document.getElementById('stop-loss').value;
+            
+            localStorage.setItem('initial_capital', initialCapital);
+            localStorage.setItem('stop_loss', stopLoss);
+            alert('Configurações salvas!');
+        }
+
+        function saveAppearanceSettings() {
+            const theme = document.getElementById('theme').value;
+            const language = document.getElementById('language').value;
+            
+            localStorage.setItem('theme', theme);
+            localStorage.setItem('language', language);
+            alert('Configurações salvas!');
+        }
+
+        // Carregar configurações salvas
+        document.addEventListener('DOMContentLoaded', function() {
+            const apiKey = localStorage.getItem('binance_api_key');
+            const secretKey = localStorage.getItem('binance_secret_key');
+            if (apiKey) document.getElementById('api-key').value = apiKey;
+            if (secretKey) document.getElementById('secret-key').value = secretKey;
+            
+            const initialCapital = localStorage.getItem('initial_capital');
+            const stopLoss = localStorage.getItem('stop_loss');
+            if (initialCapital) document.getElementById('initial-capital').value = initialCapital;
+            if (stopLoss) document.getElementById('stop-loss').value = stopLoss;
+            
+            const theme = localStorage.getItem('theme');
+            const language = localStorage.getItem('language');
+            if (theme) document.getElementById('theme').value = theme;
+            if (language) document.getElementById('language').value = language;
+        });
+    </script>
+</body>
+</html>

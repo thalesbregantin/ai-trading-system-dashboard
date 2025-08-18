@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Trading System Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .sidebar {
+            transition: all 0.3s;
+        }
+        .dashboard-content {
+            transition: all 0.3s;
+        }
+        .blink {
+            animation: blink 1.5s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="sidebar bg-gray-900 text-white w-64 md:w-20 lg:w-64 flex-shrink-0">
+            <div class="flex items-center justify-between p-4 border-b border-gray-800 md:justify-center lg:justify-between">
+                <div class="flex items-center space-x-2 lg:space-x-2">
+                    <i class="fas fa-robot text-blue-400 text-xl"></i>
+                    <span class="text-lg font-bold hidden md:hidden lg:inline">AI Trader</span>
+                </div>
+                <button class="md:hidden lg:hidden text-gray-400 hover:text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 p-2 rounded-lg bg-blue-900 text-white">
+                            <i class="fas fa-chart-line w-6 text-center"></i>
+                            <span class="hidden md:hidden lg:inline">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 p-2 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white">
+                            <i class="fas fa-exchange-alt w-6 text-center"></i>
+                            <span class="hidden md:hidden lg:inline">Trades</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 p-2 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white">
+                            <i class="fas fa-cog w-6 text-center"></i>
+                            <span class="hidden md:hidden lg:inline">Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 p-2 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white">
+                            <i class="fas fa-brain w-6 text-center"></i>
+                            <span class="hidden md:hidden lg:inline">AI Models</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 p-2 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white">
+                            <i class="fas fa-book w-6 text-center"></i>
+                            <span class="hidden md:hidden lg:inline">Docs</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="mt-8 pt-4 border-t border-gray-800">
+                    <div class="flex items-center space-x-3 p-2 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white">
+                        <i class="fas fa-power-off w-6 text-center"></i>
+                        <span class="hidden md:hidden lg:inline">Logout</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-content flex-1 overflow-auto">
+            <!-- Header -->
+            <header class="gradient-bg text-white p-4 shadow">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-xl font-bold">AI Trading Dashboard</h1>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button id="liveModeBtn" class="bg-blue-700 hover:bg-blue-600 px-4 py-2 rounded-lg flex items-center space-x-2" onclick="toggleLiveMode()">
+                                <i class="fas fa-play"></i>
+                                <span>Live Mode</span>
+                            </button>
+                            <span id="liveIndicator" class="absolute -top-2 -right-2 h-4 w-4 bg-red-500 rounded-full blink"></span>
+                        </div>
+                        <div class="hidden md:flex items-center space-x-2">
+                            <div class="h-8 w-8 rounded-full bg-blue-400 flex items-center justify-center">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span>Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="text-gray-500">Portfolio Value</p>
+                            <h3 id="portfolio-value" class="text-2xl font-bold">$24,567.89</h3>
+                        </div>
+                        <div id="portfolio-change" class="bg-green-100 text-green-800 p-2 rounded-lg">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+2.4%</span>
+                        </div>
+                    </div>
+                    <div class="mt-2 h-1 w-full bg-gray-200 rounded-full">
+                        <div class="h-1 bg-green-500 rounded-full" style="width: 65%"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="text-gray-500">Today's Profit</p>
+                            <h3 id="today-profit" class="text-2xl font-bold">$567.89</h3>
+                        </div>
+                        <div id="profit-change" class="bg-red-100 text-red-800 p-2 rounded-lg">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>-1.2%</span>
+                        </div>
+                    </div>
+                    <div class="mt-2 h-1 w-full bg-gray-200 rounded-full">
+                        <div class="h-1 bg-red-500 rounded-full" style="width: 35%"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="text-gray-500">Win Rate</p>
+                            <h3 id="win-rate" class="text-2xl font-bold">68.5%</h3>
+                        </div>
+                        <div class="bg-blue-100 text-blue-800 p-2 rounded-lg">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                    </div>
+                    <div class="mt-2 h-1 w-full bg-gray-200 rounded-full">
+                        <div class="h-1 bg-blue-500 rounded-full" style="width: 68.5%"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="text-gray-500">Sharpe Ratio</p>
+                            <h3 id="sharpe-ratio" class="text-2xl font-bold">0.82</h3>
+                        </div>
+                        <div class="bg-purple-100 text-purple-800 p-2 rounded-lg">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+                    <div class="mt-2 h-1 w-full bg-gray-200 rounded-full">
+                        <div class="h-1 bg-purple-500 rounded-full" style="width: 82%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Charts -->
+            <div class="p-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <!-- Price Chart -->
+                <div class="bg-white rounded-lg shadow p-4 lg:col-span-2">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold">BTC/USDT - AI Trading Signals</h2>
+                        <div class="flex space-x-2">
+                            <button class="time-btn px-3 py-1 bg-blue-100 text-blue-800 rounded-lg text-sm" onclick="changeTimeframe('1H')">1H</button>
+                            <button class="time-btn px-3 py-1 bg-gray-100 text-gray-800 rounded-lg text-sm" onclick="changeTimeframe('4H')">4H</button>
+                            <button class="time-btn px-3 py-1 bg-gray-100 text-gray-800 rounded-lg text-sm" onclick="changeTimeframe('1D')">1D</button>
+                            <button class="time-btn px-3 py-1 bg-gray-100 text-gray-800 rounded-lg text-sm" onclick="changeTimeframe('1W')">1W</button>
+                        </div>
+                    </div>
+                    <div class="h-80">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- AI Decision Panel -->
+                <div class="bg-white rounded-lg shadow p-4">
+                    <h2 class="text-lg font-semibold mb-4">AI Decision Panel</h2>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium">Current Decision</span>
+                                <span id="current-decision" class="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">BUY</span>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <p>AI Confidence: <span id="ai-confidence">78%</span></p>
+                                <p>Momentum Score: <span id="momentum-score">62%</span></p>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium">Hybrid System</span>
+                                <span class="text-xs bg-blue-500 text-white px-2 py-1 rounded">60% AI / 40% Momentum</span>
+                            </div>
+                            <div class="flex justify-between text-sm mt-2">
+                                <div class="text-center">
+                                    <div class="h-16 w-16 mx-auto rounded-full bg-blue-100 flex items-center justify-center">
+                                        <i class="fas fa-brain text-blue-500 text-xl"></i>
+                                    </div>
+                                    <p class="mt-1">AI Score</p>
+                                    <p class="font-bold">4.7/5</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="h-16 w-16 mx-auto rounded-full bg-purple-100 flex items-center justify-center">
+                                        <i class="fas fa-chart-line text-purple-500 text-xl"></i>
+                                    </div>
+                                    <p class="mt-1">Momentum</p>
+                                    <p class="font-bold">3.9/5</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="h-16 w-16 mx-auto rounded-full bg-green-100 flex items-center justify-center">
+                                        <i class="fas fa-robot text-green-500 text-xl"></i>
+                                    </div>
+                                    <p class="mt-1">Final</p>
+                                    <p class="font-bold">4.3/5</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-medium mb-2">Technical Indicators</h3>
+                            <div class="grid grid-cols-2 gap-2 text-sm">
+                                <div>
+                                    <p class="text-gray-600">SMA (20)</p>
+                                    <p id="sma-20" class="font-bold">$42,356.78</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600">SMA (50)</p>
+                                    <p id="sma-50" class="font-bold">$41,987.32</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600">RSI (14)</p>
+                                    <p id="rsi" class="font-bold">56.4</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600">Momentum</p>
+                                    <p id="momentum" class="font-bold">+1.2%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Trades and Portfolio -->
+            <div class="p-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <!-- Recent Trades -->
+                <div class="bg-white rounded-lg shadow p-4 lg:col-span-2">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold">Recent Trades</h2>
+                        <button class="text-blue-600 hover:text-blue-800 text-sm">View All</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pair</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profit</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-2 whitespace-nowrap">BTC/USDT</td>
+                                    <td class="px-4 py-2 whitespace-nowrap">
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">BUY</span>
+                                    </td>
+                                    <td class="px-4 py-2 whitespace-nowrap">$42,345.67</td>
+                                    <td class="px-4 py-2 whitespace-nowrap">0.05 BTC</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-green-600">+$124.56</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-gray-500">2 min ago</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 whitespace-nowrap">ETH/USDT</td>
+                                    <td class="px-4 py-2 whitespace-nowrap">
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 rounded text-xs">SELL</span>
+                                    </td>
+                                    <td class="px-4 py-2 whitespace-nowrap">$2,345.67</td>
+                                    <td class="px-4 py-2 whitespace-nowrap">1.2 ETH</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-red-600">-$45.78</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-gray-500">15 min ago</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 whitespace-nowrap">BTC/USDT</td>
+                                    <td class="px-4 py-2 whitespace-nowrap">
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 rounded text-xs">SELL</span>
+                                    </td>
+                                    <td class="px-4 py-2 whitespace-nowrap">$42,123.45</td>
+                                    <td class="px-4 py-2 whitespace-nowrap">0.03 BTC</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-green-600">+$67.89</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-gray-500">1 hour ago</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 whitespace-nowrap">SOL/USDT</td>
+                                    <td class="px-4 py-2 whitespace-nowrap">
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">BUY</span>
+                                    </td>
+                                    <td class="px-4 py-2 whitespace-nowrap">$98.76</td>
+                                    <td class="px-4 py-2 whitespace-nowrap">25 SOL</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-green-600">+$12.34</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-gray-500">3 hours ago</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Portfolio Allocation -->
+                <div class="bg-white rounded-lg shadow p-4">
+                    <h2 class="text-lg font-semibold mb-4">Portfolio Allocation</h2>
+                    <div class="h-64">
+                        <canvas id="portfolioChart"></canvas>
+                    </div>
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="h-3 w-3 bg-blue-500 rounded-full mr-2"></div>
+                                <span>BTC</span>
+                            </div>
+                            <span class="font-medium">54.2%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="h-3 w-3 bg-purple-500 rounded-full mr-2"></div>
+                                <span>ETH</span>
+                            </div>
+                            <span class="font-medium">28.7%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="h-3 w-3 bg-green-500 rounded-full mr-2"></div>
+                                <span>SOL</span>
+                            </div>
+                            <span class="font-medium">12.1%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="h-3 w-3 bg-yellow-500 rounded-full mr-2"></div>
+                                <span>USDT</span>
+                            </div>
+                            <span class="font-medium">5.0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="p-4">
+                <div class="bg-white rounded-lg shadow p-4">
+                    <h2 class="text-lg font-semibold mb-4">System Status</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
+                                    <i class="fas fa-check text-green-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">AI Model</p>
+                                    <p class="font-medium">Running</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
+                                    <i class="fas fa-check text-green-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">Binance API</p>
+                                    <p class="font-medium">Connected</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center">
+                                    <i class="fas fa-exclamation text-yellow-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">Data Feed</p>
+                                    <p class="font-medium">Lagging (0.5s)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
+                                    <i class="fas fa-check text-green-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">Risk Manager</p>
+                                    <p class="font-medium">Active</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentTimeframe = '1H';
+        let liveMode = false;
+        let priceChart, portfolioChart;
+        let apiBaseUrl = 'http://localhost:5000/api';
+        let updateInterval;
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            checkApiConnection();
+            initializeCharts();
+            loadRealData();
+        });
+
+        async function checkApiConnection() {
+            try {
+                const response = await fetch(`${apiBaseUrl}/status`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ API conectada com sucesso');
+                    updateSystemStatus(true);
+                } else {
+                    console.log('❌ Erro na conexão com API');
+                    updateSystemStatus(false);
+                }
+            } catch (error) {
+                console.log('❌ Não foi possível conectar com a API');
+                updateSystemStatus(false);
+            }
+        }
+
+        function updateSystemStatus(connected) {
+            const statusElements = document.querySelectorAll('.bg-gray-50 p-4');
+            if (statusElements.length >= 2) {
+                const binanceStatus = statusElements[1];
+                const statusIcon = binanceStatus.querySelector('.fas');
+                const statusText = binanceStatus.querySelector('.font-medium');
+                
+                if (connected) {
+                    statusIcon.className = 'fas fa-check text-green-500';
+                    statusText.textContent = 'Connected';
+                } else {
+                    statusIcon.className = 'fas fa-times text-red-500';
+                    statusText.textContent = 'Disconnected';
+                }
+            }
+        }
+
+        async function loadRealData() {
+            await Promise.all([
+                loadPortfolioData(),
+                loadMetricsData(),
+                loadTradesData(),
+                loadChartData(),
+                updateHybridSystem()
+            ]);
+        }
+
+        async function loadPortfolioData() {
+            try {
+                const response = await fetch(`${apiBaseUrl}/portfolio`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const portfolio = data.data;
+                    document.getElementById('portfolio-value').textContent = `$${portfolio.total_usdt_value.toFixed(2)}`;
+                    
+                    // Atualizar gráfico de portfolio
+                    updatePortfolioChart(portfolio.balances);
+                }
+            } catch (error) {
+                console.log('Erro ao carregar dados do portfolio:', error);
+            }
+        }
+
+        async function loadMetricsData() {
+            try {
+                const response = await fetch(`${apiBaseUrl}/metrics`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const metrics = data.data;
+                    document.getElementById('win-rate').textContent = `${metrics.win_rate.toFixed(1)}%`;
+                    document.getElementById('sharpe-ratio').textContent = metrics.sharpe_ratio.toFixed(2);
+                    document.getElementById('today-profit').textContent = `$${metrics.net_pnl.toFixed(2)}`;
+                }
+            } catch (error) {
+                console.log('Erro ao carregar métricas:', error);
+            }
+        }
+
+        async function loadTradesData() {
+            try {
+                const response = await fetch(`${apiBaseUrl}/trades?limit=10`);
+                const data = await response.json();
+                
+                if (data.success && data.data.length > 0) {
+                    updateTradesTable(data.data);
+                } else {
+                    // Se não há trades reais, mostrar mensagem
+                    updateTradesTable([]);
+                }
+            } catch (error) {
+                console.log('Erro ao carregar trades:', error);
+                // Em caso de erro, mostrar trades simulados
+                updateTradesTable([]);
+            }
+        }
+
+        async function loadChartData() {
+            try {
+                const response = await fetch(`${apiBaseUrl}/chart-data?symbol=BTC/USDT&timeframe=1h&limit=100`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    updatePriceChart(data.data);
+                }
+            } catch (error) {
+                console.log('Erro ao carregar dados do gráfico:', error);
+            }
+        }
+
+        function updatePortfolioChart(balances) {
+            if (portfolioChart) {
+                const labels = Object.keys(balances);
+                const values = Object.values(balances).map(b => b.percentage);
+                
+                portfolioChart.data.labels = labels;
+                portfolioChart.data.datasets[0].data = values;
+                portfolioChart.update();
+            }
+        }
+
+        function updateTradesTable(trades) {
+            const tbody = document.querySelector('tbody');
+            if (tbody) {
+                tbody.innerHTML = '';
+                
+                if (trades.length > 0) {
+                    // Mostrar trades reais
+                    trades.slice(0, 4).forEach(trade => {
+                        const row = document.createElement('tr');
+                        const side = trade.side === 'buy' ? 'BUY' : 'SELL';
+                        const sideClass = trade.side === 'buy' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+                        const profitClass = trade.side === 'buy' ? 'text-green-600' : 'text-red-600';
+                        
+                        row.innerHTML = `
+                            <td class="px-4 py-2 whitespace-nowrap">${trade.symbol}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">
+                                <span class="px-2 py-1 ${sideClass} rounded text-xs">${side}</span>
+                            </td>
+                            <td class="px-4 py-2 whitespace-nowrap">$${trade.price.toFixed(2)}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">${trade.amount.toFixed(4)}</td>
+                            <td class="px-4 py-2 whitespace-nowrap ${profitClass}">$${trade.cost.toFixed(2)}</td>
+                            <td class="px-4 py-2 whitespace-nowrap text-gray-500">${formatTimeAgo(trade.timestamp)}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                } else {
+                    // Mostrar mensagem quando não há trades
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td colspan="6" class="px-4 py-8 text-center text-gray-500">
+                            <div class="flex flex-col items-center">
+                                <i class="fas fa-chart-line text-4xl mb-2 text-gray-300"></i>
+                                <p class="text-sm">Nenhum trade encontrado</p>
+                                <p class="text-xs text-gray-400">Seus trades aparecerão aqui quando você fizer operações</p>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                }
+            }
+        }
+
+        function updatePriceChart(chartData) {
+            if (priceChart && chartData.length > 0) {
+                const labels = chartData.map(d => new Date(d.timestamp).toLocaleTimeString());
+                const prices = chartData.map(d => d.close);
+                const sma20 = chartData.map(d => d.sma_20);
+                const sma50 = chartData.map(d => d.sma_50);
+                
+                priceChart.data.labels = labels;
+                priceChart.data.datasets[0].data = prices;
+                priceChart.data.datasets[1].data = sma20;
+                priceChart.data.datasets[2].data = sma50;
+                priceChart.update();
+                
+                // Atualizar indicadores técnicos
+                const latest = chartData[chartData.length - 1];
+                document.getElementById('sma-20').textContent = `$${latest.sma_20?.toFixed(2) || 'N/A'}`;
+                document.getElementById('sma-50').textContent = `$${latest.sma_50?.toFixed(2) || 'N/A'}`;
+                document.getElementById('rsi').textContent = latest.rsi?.toFixed(1) || 'N/A';
+                document.getElementById('momentum').textContent = `${latest.momentum > 0 ? '+' : ''}${latest.momentum?.toFixed(1) || 'N/A'}%`;
+            }
+        }
+
+        function formatTimeAgo(timestamp) {
+            const now = Date.now();
+            const diff = now - timestamp;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if (minutes < 60) return `${minutes} min ago`;
+            if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+            return `${days} day${days > 1 ? 's' : ''} ago`;
+        }
+
+        async function updateMetrics() {
+            await Promise.all([
+                loadPortfolioData(),
+                loadMetricsData(),
+                loadChartData(),
+                updateHybridSystem()
+            ]);
+        }
+
+        async function updateHybridSystem() {
+            try {
+                // Obter dados reais para calcular notas
+                const [portfolioResponse, metricsResponse, priceResponse] = await Promise.all([
+                    fetch(`${apiBaseUrl}/portfolio`),
+                    fetch(`${apiBaseUrl}/metrics`),
+                    fetch(`${apiBaseUrl}/current-price?symbol=BTC/USDT`)
+                ]);
+                
+                const portfolioData = await portfolioResponse.json();
+                const metricsData = await metricsResponse.json();
+                const priceData = await priceResponse.json();
+                
+                if (portfolioData.success && metricsData.success && priceData.success) {
+                    const portfolio = portfolioData.data;
+                    const metrics = metricsData.data;
+                    const price = priceData.data;
+                    
+                    // Calcular notas baseadas em dados reais
+                    const aiScore = calculateAIScore(metrics, price);
+                    const momentumScore = calculateMomentumScore(price);
+                    const finalScore = (aiScore + momentumScore) / 2;
+                    
+                    // Atualizar notas no dashboard
+                    updateHybridScores(aiScore, momentumScore, finalScore);
+                    
+                    // Atualizar decisão atual
+                    updateCurrentDecision(finalScore);
+                }
+            } catch (error) {
+                console.log('Erro ao atualizar sistema híbrido:', error);
+            }
+        }
+
+        function calculateAIScore(metrics, price) {
+            // Calcular nota do AI baseada em métricas reais
+            let score = 3.0; // Nota base
+            
+            // Ajustar baseado no win rate
+            if (metrics.win_rate > 70) score += 1.0;
+            else if (metrics.win_rate > 50) score += 0.5;
+            
+            // Ajustar baseado no Sharpe ratio
+            if (metrics.sharpe_ratio > 1.0) score += 0.5;
+            else if (metrics.sharpe_ratio > 0.5) score += 0.3;
+            
+            // Ajustar baseado no volume de trading
+            if (metrics.total_trades > 10) score += 0.2;
+            
+            return Math.min(5.0, Math.max(1.0, score));
+        }
+
+        function calculateMomentumScore(price) {
+            // Calcular nota do momentum baseada no preço atual
+            let score = 3.0; // Nota base
+            
+            // Ajustar baseado na variação 24h
+            const change24h = price.change_24h;
+            if (change24h > 5) score += 1.0;
+            else if (change24h > 2) score += 0.5;
+            else if (change24h < -5) score -= 0.5;
+            else if (change24h < -2) score -= 0.3;
+            
+            return Math.min(5.0, Math.max(1.0, score));
+        }
+
+        function updateHybridScores(aiScore, momentumScore, finalScore) {
+            // Atualizar as notas no dashboard
+            const aiScoreElement = document.querySelector('.text-center:nth-child(1) .font-bold');
+            const momentumScoreElement = document.querySelector('.text-center:nth-child(2) .font-bold');
+            const finalScoreElement = document.querySelector('.text-center:nth-child(3) .font-bold');
+            
+            if (aiScoreElement) aiScoreElement.textContent = `${aiScore.toFixed(1)}/5`;
+            if (momentumScoreElement) momentumScoreElement.textContent = `${momentumScore.toFixed(1)}/5`;
+            if (finalScoreElement) finalScoreElement.textContent = `${finalScore.toFixed(1)}/5`;
+        }
+
+        function updateCurrentDecision(finalScore) {
+            const decisionBtn = document.getElementById('current-decision');
+            const confidenceElement = document.getElementById('ai-confidence');
+            const momentumElement = document.getElementById('momentum-score');
+            
+            // Determinar decisão baseada na nota final
+            let decision, confidence, momentum;
+            
+            if (finalScore >= 4.0) {
+                decision = 'BUY';
+                confidence = Math.floor(80 + (finalScore - 4.0) * 20);
+                momentum = Math.floor(70 + (finalScore - 4.0) * 15);
+            } else if (finalScore >= 3.0) {
+                decision = 'HOLD';
+                confidence = Math.floor(60 + (finalScore - 3.0) * 20);
+                momentum = Math.floor(50 + (finalScore - 3.0) * 20);
+            } else {
+                decision = 'SELL';
+                confidence = Math.floor(40 + (finalScore - 2.0) * 20);
+                momentum = Math.floor(30 + (finalScore - 2.0) * 20);
+            }
+            
+            // Atualizar interface
+            if (decisionBtn) {
+                decisionBtn.textContent = decision;
+                decisionBtn.className = 'px-2 py-1 rounded text-sm';
+                if (decision === 'BUY') {
+                    decisionBtn.classList.add('bg-green-100', 'text-green-800');
+                } else if (decision === 'SELL') {
+                    decisionBtn.classList.add('bg-red-100', 'text-red-800');
+                } else {
+                    decisionBtn.classList.add('bg-yellow-100', 'text-yellow-800');
+                }
+            }
+            
+            if (confidenceElement) confidenceElement.textContent = `${confidence}%`;
+            if (momentumElement) momentumElement.textContent = `${momentum}%`;
+        }
+
+        function initializeCharts() {
+            // Price Chart
+            const priceCtx = document.getElementById('priceChart').getContext('2d');
+            priceChart = new Chart(priceCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                    datasets: [
+                        {
+                            label: 'BTC Price',
+                            data: [42100, 42250, 42300, 42450, 42300, 42400, 42500, 42450, 42550, 42600, 42550, 42650, 
+                                   42700, 42650, 42500, 42400, 42350, 42400, 42300, 42250, 42300, 42200, 42150, 42250],
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'SMA (20)',
+                            data: [42050, 42100, 42150, 42200, 42250, 42300, 42350, 42400, 42450, 42500, 42550, 42600, 
+                                   42650, 42700, 42750, 42700, 42650, 42600, 42550, 42500, 42450, 42400, 42350, 42300],
+                            borderColor: 'rgba(139, 92, 246, 1)',
+                            borderDash: [5, 5],
+                            tension: 0.1
+                        },
+                        {
+                            label: 'SMA (50)',
+                            data: [42000, 42050, 42100, 42150, 42200, 42250, 42300, 42350, 42400, 42450, 42500, 42550, 
+                                   42600, 42650, 42700, 42750, 42800, 42750, 42700, 42650, 42600, 42550, 42500, 42450],
+                            borderColor: 'rgba(16, 185, 129, 1)',
+                            borderDash: [5, 5],
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
+                }
+            });
+
+            // Portfolio Chart
+            const portfolioCtx = document.getElementById('portfolioChart').getContext('2d');
+            portfolioChart = new Chart(portfolioCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['BTC', 'ETH', 'SOL', 'USDT'],
+                    datasets: [{
+                        data: [54.2, 28.7, 12.1, 5.0],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.8)',
+                            'rgba(139, 92, 246, 0.8)',
+                            'rgba(16, 185, 129, 0.8)',
+                            'rgba(234, 179, 8, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(139, 92, 246, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(234, 179, 8, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+
+        function changeTimeframe(timeframe) {
+            currentTimeframe = timeframe;
+            
+            // Update active button
+            document.querySelectorAll('.time-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-100', 'text-blue-800');
+                btn.classList.add('bg-gray-100', 'text-gray-800');
+            });
+            event.target.classList.remove('bg-gray-100', 'text-gray-800');
+            event.target.classList.add('bg-blue-100', 'text-blue-800');
+
+            // Carregar novos dados do gráfico
+            loadChartData();
+        }
+
+        function toggleLiveMode() {
+            liveMode = !liveMode;
+            const btn = document.getElementById('liveModeBtn');
+            const indicator = document.getElementById('liveIndicator');
+            
+            if (liveMode) {
+                btn.innerHTML = '<i class="fas fa-pause"></i><span>Live Mode</span>';
+                btn.classList.remove('bg-blue-700', 'hover:bg-blue-600');
+                btn.classList.add('bg-green-600', 'hover:bg-green-500');
+                indicator.classList.remove('bg-red-500');
+                indicator.classList.add('bg-green-500');
+                startLiveUpdates();
+            } else {
+                btn.innerHTML = '<i class="fas fa-play"></i><span>Live Mode</span>';
+                btn.classList.remove('bg-green-600', 'hover:bg-green-500');
+                btn.classList.add('bg-blue-700', 'hover:bg-blue-600');
+                indicator.classList.remove('bg-green-500');
+                indicator.classList.add('bg-red-500');
+                stopLiveUpdates();
+            }
+        }
+
+        function startLiveUpdates() {
+            // Update every 5 seconds in live mode
+            updateInterval = setInterval(() => {
+                updateMetrics();
+                updateHybridSystem(); // Atualizar o sistema híbrido em tempo real
+            }, 5000);
+        }
+
+        function stopLiveUpdates() {
+            if (updateInterval) {
+                clearInterval(updateInterval);
+                updateInterval = null;
+            }
+        }
+
+        // Atualizar sistema híbrido a cada 30 segundos
+        setInterval(() => {
+            updateHybridSystem();
+        }, 30000);
+    </script>
+</body>
+</html>

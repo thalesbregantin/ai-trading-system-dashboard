@@ -1,0 +1,42 @@
+services:
+  paper:
+    build: .
+    image: investimento:latest
+    working_dir: /app
+    env_file:
+      - .env
+    environment:
+      - LIVE=1
+      - SYMBOL=BTC/USDT
+      - EXCHANGE=binance
+      - QUOTE_ALLOC_PCT=0.01
+      - MIN_NOTIONAL=10
+      - POLL_SEC=5
+    volumes:
+      - .:/app
+    command: ["python", "auto_start_paper.py"]
+    restart: unless-stopped
+
+  worker_0:
+    build: .
+    image: investimento:latest
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      - TOTAL=2
+      - SLICE=0
+    command: ["python", "worker_opt.py"]
+    restart: "no"
+
+  worker_1:
+    build: .
+    image: investimento:latest
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      - TOTAL=2
+      - SLICE=1
+    command: ["python", "worker_opt.py"]
+    restart: "no"

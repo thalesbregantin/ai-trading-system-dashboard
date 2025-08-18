@@ -1,0 +1,73 @@
+atr_stop_mult,atr_take_mult,time_stop_bars,trail_atr_mult,use_trailing,metrics,equity_curve,trades,rolling_sharpe_63d,config,_idx,_slice
+1.0,1.0,8,0.0,False,"{'final_equity': np.float64(2029.2884769690827), 'cumulative_return': np.float64(1.0292884769690827), 'cagr': np.float64(0.17218594126987585), 'max_drawdown': np.float64(-0.19330113179974606), 'sharpe': np.float64(0.9902600852317291), 'calmar': np.float64(0.890765303165711), 'trades': 129, 'win_rate': 0.5658914728682171, 'avg_win': np.float64(39.76169286058827), 'avg_loss': np.float64(-33.45205539024754), 'profit_factor': np.float64(1.5494475947748894), 'turnover': np.float64(96.05247402327225), 'exposure_ratio': np.float64(0.3402948402948403), 'return_bull_sum': np.float64(0.7426124080019452), 'return_bear_sum': np.float64(0.009513865512333242), 'sharpe_bull': np.float64(1.2971044229393975), 'sharpe_bear': np.float64(0.19722684696490664), 'loss_streaks_triggered': 0, 'signal_day_ratio': 0.41216216216216217, 'avg_holding_bars': np.float64(4.294573643410852)}","2020-07-18    1000.000000
+2020-07-19    1000.000000
+2020-07-20    1000.000000
+2020-07-21    1000.000000
+2020-07-22    1000.000000
+                 ...     
+2024-12-27    2049.121663
+2024-12-28    2048.557019
+2024-12-29    2030.932667
+2024-12-30    2021.363563
+2024-12-31    2029.288477
+Name: equity, Length: 1628, dtype: float64","    entry_date  exit_date    entry_price  ...        pnl   pnl_pct  bars
+0   2020-07-30 2020-08-01   11111.213867  ...  25.594740  0.058354     2
+1   2020-08-02 2020-08-05   11053.614258  ...  25.447555  0.062731     3
+2   2020-08-06 2020-08-14   11779.773438  ...  -0.888141 -0.000926     8
+3   2020-08-15 2020-08-23   11865.698242  ...  -9.303434 -0.016927     8
+4   2020-08-24 2020-08-25   11774.595703  ... -21.182141 -0.034690     1
+..         ...        ...            ...  ...        ...       ...   ...
+124 2024-11-28 2024-12-06   95652.468750  ...  36.649320  0.044622     8
+125 2024-12-07 2024-12-15   99923.335938  ...  42.391039  0.043787     8
+126 2024-12-16 2024-12-18  106029.718750  ... -61.188619 -0.056476     2
+127 2024-12-19 2024-12-27   97490.953125  ... -33.474142 -0.034117     8
+128 2024-12-28 2024-12-31   95163.929688  ... -19.833186 -0.018229     3
+
+[129 rows x 8 columns]","2020-07-18         NaN
+2020-07-19         NaN
+2020-07-20         NaN
+2020-07-21         NaN
+2020-07-22         NaN
+                ...   
+2024-12-27    2.722629
+2024-12-28    2.644942
+2024-12-29    2.287317
+2024-12-30    1.841200
+2024-12-31    1.444762
+Name: equity, Length: 1628, dtype: float64","{'symbol': 'BTC-USD', 'start': '2020-01-01', 'end': '2025-01-01', 'initial_equity': 1000.0, 'target_vol_annual': 0.2, 'ewma_lambda': 0.94, 'atr_len': 14, 'lookback_mom_long': 126, 'lookback_mom_short': 10, 'sma_trend': 200, 'reg_trend_len': 60, 'use_regression_trend': True, 'atr_stop_mult': 1.0, 'atr_take_mult': 1.0, 'time_stop_bars': 8, 'cost_bps': 5.0, 'slippage_bps': 3.0, 'min_vol_annual': 0.05, 'max_position_notional_frac': 0.95, 'download': True, 'data': None, 'require_mom_short_positive': False, 'use_vol_filter': True, 'vol_filter_mult': 1.5, 'use_trailing': False, 'trail_atr_mult': 0.0, 'use_mom_quantile': False, 'mom_quantile_q': 0.3, 'mom_quantile_window': 252, 'use_slope_min': False, 'slope_min': 0.0001, 'stagger_entry': False, 'stagger_fraction': 0.5, 'partial_exit_atr_trigger': 2.0, 'partial_exit_fraction': 0.0, 'move_stop_to_half_atr': False, 'enable_loss_cooldown': False, 'loss_streak_threshold': 2, 'cooldown_bars_after_loss_streak': 10, 'optimize': False}",0,0
+1.5,1.5,8,1.0,True,"{'final_equity': np.float64(2200.088909976433), 'cumulative_return': np.float64(1.200088909976433), 'cagr': np.float64(0.1936456278212244), 'max_drawdown': np.float64(-0.12852252154108768), 'sharpe': np.float64(1.0852913926933112), 'calmar': np.float64(1.5067057936559187), 'trades': 112, 'win_rate': 0.5892857142857143, 'avg_win': np.float64(40.805434602674715), 'avg_loss': np.float64(-32.45803856087166), 'profit_factor': np.float64(1.8037728249779106), 'turnover': np.float64(85.07604820222652), 'exposure_ratio': np.float64(0.3501228501228501), 'return_bull_sum': np.float64(0.815745304917452), 'return_bear_sum': np.float64(0.018264539027583626), 'sharpe_bull': np.float64(1.4071880415800906), 'sharpe_bear': np.float64(0.41881543324873455), 'loss_streaks_triggered': 0, 'signal_day_ratio': 0.41216216216216217, 'avg_holding_bars': np.float64(5.089285714285714)}","2020-07-18    1000.000000
+2020-07-19    1000.000000
+2020-07-20    1000.000000
+2020-07-21    1000.000000
+2020-07-22    1000.000000
+                 ...     
+2024-12-27    2192.357570
+2024-12-28    2202.533460
+2024-12-29    2201.916580
+2024-12-30    2191.279631
+2024-12-31    2200.088910
+Name: equity, Length: 1628, dtype: float64","    entry_date  exit_date    entry_price  ...        pnl   pnl_pct  bars
+0   2020-07-30 2020-08-01   11111.213867  ...  25.594740  0.058354     2
+1   2020-08-02 2020-08-05   11053.614258  ...  25.447555  0.062731     3
+2   2020-08-06 2020-08-14   11779.773438  ...  -0.888141 -0.000926     8
+3   2020-08-15 2020-08-20   11865.698242  ...  -0.016772  0.001068     5
+4   2020-08-21 2020-08-29   11592.489258  ...  -4.659342 -0.007386     8
+..         ...        ...            ...  ...        ...       ...   ...
+107 2024-11-27 2024-12-05   95962.531250  ...   4.953043  0.006576     8
+108 2024-12-06 2024-12-14   99920.710938  ...  14.106974  0.014534     8
+109 2024-12-15 2024-12-19  104298.695312  ... -74.523861 -0.065272     4
+110 2024-12-20 2024-12-28   97755.929688  ... -29.000481 -0.026515     8
+111 2024-12-29 2024-12-31   93530.226562  ...  -2.444550 -0.001080     2
+
+[112 rows x 8 columns]","2020-07-18         NaN
+2020-07-19         NaN
+2020-07-20         NaN
+2020-07-21         NaN
+2020-07-22         NaN
+                ...   
+2024-12-27    1.734135
+2024-12-28    1.755982
+2024-12-29    1.580595
+2024-12-30    1.124995
+2024-12-31    0.708503
+Name: equity, Length: 1628, dtype: float64","{'symbol': 'BTC-USD', 'start': '2020-01-01', 'end': '2025-01-01', 'initial_equity': 1000.0, 'target_vol_annual': 0.2, 'ewma_lambda': 0.94, 'atr_len': 14, 'lookback_mom_long': 126, 'lookback_mom_short': 10, 'sma_trend': 200, 'reg_trend_len': 60, 'use_regression_trend': True, 'atr_stop_mult': 1.5, 'atr_take_mult': 1.5, 'time_stop_bars': 8, 'cost_bps': 5.0, 'slippage_bps': 3.0, 'min_vol_annual': 0.05, 'max_position_notional_frac': 0.95, 'download': True, 'data': None, 'require_mom_short_positive': False, 'use_vol_filter': True, 'vol_filter_mult': 1.5, 'use_trailing': True, 'trail_atr_mult': 1.0, 'use_mom_quantile': False, 'mom_quantile_q': 0.3, 'mom_quantile_window': 252, 'use_slope_min': False, 'slope_min': 0.0001, 'stagger_entry': False, 'stagger_fraction': 0.5, 'partial_exit_atr_trigger': 2.0, 'partial_exit_fraction': 0.0, 'move_stop_to_half_atr': False, 'enable_loss_cooldown': False, 'loss_streak_threshold': 2, 'cooldown_bars_after_loss_streak': 10, 'optimize': False}",2,0

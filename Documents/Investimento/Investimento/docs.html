@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Trading - Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="bg-gray-800 border-b border-gray-700">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-blue-400 hover:text-blue-300">
+                        <i class="fas fa-arrow-left mr-2"></i>Voltar ao Dashboard
+                    </a>
+                    <h1 class="text-2xl font-bold">📄 Documentation</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-gray-700">
+                <nav class="-mb-px flex space-x-8">
+                    <button onclick="showTab('guide')" id="tab-guide" class="tab-button active py-2 px-1 border-b-2 border-blue-500 font-medium text-sm">
+                        <i class="fas fa-book mr-2"></i>Guia de Uso
+                    </button>
+                    <button onclick="showTab('api')" id="tab-api" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-400 hover:text-gray-300">
+                        <i class="fas fa-code mr-2"></i>API Docs
+                    </button>
+                    <button onclick="showTab('faq')" id="tab-faq" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-400 hover:text-gray-300">
+                        <i class="fas fa-question-circle mr-2"></i>FAQ
+                    </button>
+                    <button onclick="showTab('links')" id="tab-links" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-400 hover:text-gray-300">
+                        <i class="fas fa-link mr-2"></i>Links Úteis
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Guia de Uso Tab -->
+        <div id="guide" class="tab-content">
+            <div class="bg-gray-800 rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">📖 Guia de Uso</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-medium mb-3">🚀 Primeiros Passos</h3>
+                        <div class="bg-gray-700 rounded-lg p-4">
+                            <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                                <li><strong>Configure suas API Keys</strong> na seção Settings</li>
+                                <li><strong>Inicie o servidor API</strong> com <code class="bg-gray-600 px-2 py-1 rounded">python simple_api_server.py</code></li>
+                                <li><strong>Ative o Live Mode</strong> para dados em tempo real</li>
+                                <li><strong>Monitore seus trades</strong> na seção Trades</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-medium mb-3">📊 Dashboard</h3>
+                        <div class="bg-gray-700 rounded-lg p-4">
+                            <p class="text-gray-300 mb-3">O dashboard principal mostra:</p>
+                            <ul class="list-disc list-inside space-y-1 text-gray-300">
+                                <li><strong>Métricas em tempo real</strong> do seu portfólio</li>
+                                <li><strong>Gráficos de preços</strong> com sinais de trading</li>
+                                <li><strong>Decisões da IA</strong> baseadas em análise técnica</li>
+                                <li><strong>Hybrid System</strong> combinando IA e análise técnica</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-medium mb-3">🔄 Live Mode</h3>
+                        <div class="bg-gray-700 rounded-lg p-4">
+                            <p class="text-gray-300 mb-3">O Live Mode atualiza automaticamente:</p>
+                            <ul class="list-disc list-inside space-y-1 text-gray-300">
+                                <li>Dados de preços a cada 30 segundos</li>
+                                <li>Métricas de performance</li>
+                                <li>Sinais de trading da IA</li>
+                                <li>Saldo da conta Binance</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-medium mb-3">🧠 AI Models</h3>
+                        <div class="bg-gray-700 rounded-lg p-4">
+                            <p class="text-gray-300 mb-3">Gerenciamento de modelos:</p>
+                            <ul class="list-disc list-inside space-y-1 text-gray-300">
+                                <li><strong>Treinar novos modelos</strong> para diferentes pares</li>
+                                <li><strong>Monitorar performance</strong> dos modelos existentes</li>
+                                <li><strong>Fazer deploy</strong> dos melhores modelos</li>
+                                <li><strong>Retreinar</strong> modelos com novos dados</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Docs Tab -->
+        <div id="api" class="tab-content hidden">
+            <div class="bg-gray-800 rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">🔧 API Documentation</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-medium mb-3">Endpoints Disponíveis</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-gray-700 rounded-lg p-4">
+                                <h4 class="font-medium text-blue-400 mb-2">GET /api/status</h4>
+                                <p class="text-gray-300 mb-2">Verifica status da conexão com Binance</p>
+                                <div class="bg-gray-600 rounded p-2 text-sm">
+                                    <code>Response: {"success": true, "data": {"binance_connected": true}}</code>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-700 rounded-lg p-4">
+                                <h4 class="font-medium text-blue-400 mb-2">GET /api/balance</h4>
+                                <p class="text-gray-300 mb-2">Obtém saldo da conta Binance</p>
+                                <div class="bg-gray-600 rounded p-2 text-sm">
+                                    <code>Response: {"success": true, "data": {"balances": {...}, "total_usdt_value": 1234.56}}</code>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-700 rounded-lg p-4">
+                                <h4 class="font-medium text-blue-400 mb-2">GET /api/trades</h4>
+                                <p class="text-gray-300 mb-2">Obtém histórico de trades</p>
+                                <p class="text-gray-400 text-sm mb-2">Parâmetros: symbol, limit, since</p>
+                                <div class="bg-gray-600 rounded p-2 text-sm">
+                                    <code>Response: {"success": true, "data": [{"timestamp": "...", "symbol": "BTC/USDT", ...}]}</code>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-700 rounded-lg p-4">
+                                <h4 class="font-medium text-blue-400 mb-2">GET /api/current-price</h4>
+                                <p class="text-gray-300 mb-2">Obtém preço atual de um par</p>
+                                <p class="text-gray-400 text-sm mb-2">Parâmetros: symbol (padrão: BTC/USDT)</p>
+                                <div class="bg-gray-600 rounded p-2 text-sm">
+                                    <code>Response: {"success": true, "data": {"price": 42150.50}}</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-medium mb-3">Exemplo de Uso</h3>
+                        <div class="bg-gray-700 rounded-lg p-4">
+                            <pre class="text-sm text-gray-300"><code>// Verificar status da API
+fetch('http://localhost:5000/api/status')
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log('API conectada!');
+    }
+  });
+
+// Obter saldo da conta
+fetch('http://localhost:5000/api/balance')
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log('Saldo:', data.data.total_usdt_value);
+    }
+  });</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Tab -->
+        <div id="faq" class="tab-content hidden">
+            <div class="bg-gray-800 rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">❓ FAQ</h2>
+                
+                <div class="space-y-4">
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <h3 class="font-medium text-blue-400 mb-2">Como configurar as API Keys?</h3>
+                        <ol class="list-decimal list-inside space-y-1 text-gray-300">
+                            <li>Acesse sua conta Binance</li>
+                            <li>Vá em API Management</li>
+                            <li>Crie uma nova API Key</li>
+                            <li>Configure as permissões necessárias (Spot Trading)</li>
+                            <li>Cole as chaves na seção Settings</li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <h3 class="font-medium text-blue-400 mb-2">O que significa 'API Desconectada'?</h3>
+                        <p class="text-gray-300">Significa que o servidor API não está rodando. Execute:</p>
+                        <div class="bg-gray-600 rounded p-2 mt-2 text-sm">
+                            <code>python simple_api_server.py</code>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <h3 class="font-medium text-blue-400 mb-2">Como interpretar os sinais da IA?</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-300">
+                            <li><strong>BUY:</strong> A IA recomenda comprar</li>
+                            <li><strong>SELL:</strong> A IA recomenda vender</li>
+                            <li><strong>HOLD:</strong> A IA recomenda aguardar</li>
+                            <li><strong>Score:</strong> Confiança da decisão (0-5)</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <h3 class="font-medium text-blue-400 mb-2">Como funciona o Hybrid System?</h3>
+                        <p class="text-gray-300">O sistema híbrido combina:</p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-300">
+                            <li><strong>IA (60%):</strong> Decisões baseadas em Deep Q-Learning</li>
+                            <li><strong>Momentum (40%):</strong> Análise técnica tradicional</li>
+                            <li><strong>Score Final:</strong> Média ponderada dos dois sistemas</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <h3 class="font-medium text-blue-400 mb-2">Posso usar o sistema em produção?</h3>
+                        <p class="text-gray-300">⚠️ <strong>Atenção:</strong> Este é um sistema de demonstração. Para uso em produção:</p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-300">
+                            <li>Teste extensivamente em ambiente de sandbox</li>
+                            <li>Configure stop-loss e take-profit adequados</li>
+                            <li>Monitore constantemente o desempenho</li>
+                            <li>Use apenas capital que pode perder</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Links Úteis Tab -->
+        <div id="links" class="tab-content hidden">
+            <div class="bg-gray-800 rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">🔗 Links Úteis</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-medium mb-3">📚 Recursos</h3>
+                        <div class="space-y-3">
+                            <a href="https://binance-docs.github.io/apidocs/" target="_blank" class="block bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition">
+                                <div class="flex items-center">
+                                    <i class="fas fa-book text-blue-400 mr-3"></i>
+                                    <div>
+                                        <p class="font-medium">Documentação Binance API</p>
+                                        <p class="text-gray-400 text-sm">API oficial da Binance</p>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            <a href="https://docs.ccxt.com/" target="_blank" class="block bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition">
+                                <div class="flex items-center">
+                                    <i class="fas fa-code text-green-400 mr-3"></i>
+                                    <div>
+                                        <p class="font-medium">CCXT Library</p>
+                                        <p class="text-gray-400 text-sm">Biblioteca para exchanges</p>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            <a href="https://www.tensorflow.org/" target="_blank" class="block bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition">
+                                <div class="flex items-center">
+                                    <i class="fas fa-brain text-orange-400 mr-3"></i>
+                                    <div>
+                                        <p class="font-medium">TensorFlow</p>
+                                        <p class="text-gray-400 text-sm">Framework de IA</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-medium mb-3">🛠️ Ferramentas</h3>
+                        <div class="space-y-3">
+                            <a href="https://www.tradingview.com/" target="_blank" class="block bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition">
+                                <div class="flex items-center">
+                                    <i class="fas fa-chart-line text-blue-400 mr-3"></i>
+                                    <div>
+                                        <p class="font-medium">TradingView</p>
+                                        <p class="text-gray-400 text-sm">Análise técnica</p>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            <a href="https://coingecko.com/" target="_blank" class="block bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition">
+                                <div class="flex items-center">
+                                    <i class="fas fa-coins text-yellow-400 mr-3"></i>
+                                    <div>
+                                        <p class="font-medium">CoinGecko</p>
+                                        <p class="text-gray-400 text-sm">Dados de criptomoedas</p>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            <a href="https://alternative.me/crypto/fear-and-greed-index/" target="_blank" class="block bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition">
+                                <div class="flex items-center">
+                                    <i class="fas fa-thermometer-half text-red-400 mr-3"></i>
+                                    <div>
+                                        <p class="font-medium">Fear & Greed Index</p>
+                                        <p class="text-gray-400 text-sm">Sentimento do mercado</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Funções de Tab
+        function showTab(tabName) {
+            // Esconder todas as tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Remover classe active de todos os botões
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active', 'border-blue-500', 'text-white');
+                button.classList.add('border-transparent', 'text-gray-400');
+            });
+            
+            // Mostrar tab selecionada
+            document.getElementById(tabName).classList.remove('hidden');
+            
+            // Ativar botão selecionado
+            document.getElementById(`tab-${tabName}`).classList.add('active', 'border-blue-500', 'text-white');
+            document.getElementById(`tab-${tabName}`).classList.remove('border-transparent', 'text-gray-400');
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab padrão já está ativa
+        });
+    </script>
+</body>
+</html>

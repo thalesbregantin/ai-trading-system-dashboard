@@ -1,0 +1,490 @@
+2025-08-15 15:01:30,103 - ERROR - Failed to get ticker 'BTC/USDT' reason: Expecting value: line 1 column 1 (char 0)
+2025-08-15 15:01:30,743 - ERROR - HTTP Error 500: 
+2025-08-15 15:29:50,988 - ERROR - Failed to get ticker 'BTC/USDT' reason: Expecting value: line 1 column 1 (char 0)
+2025-08-15 15:29:51,606 - ERROR - HTTP Error 500: 
+2025-08-15 16:23:32,196 - INFO - Binance AI Bot inicializado (TESTNET)
+2025-08-15 16:23:39,672 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:23:39,673 - INFO - 🚀 Iniciando sessão de trading por 24h
+2025-08-15 16:23:39,675 - INFO - 🧠 Inicializando sistemas AI...
+2025-08-15 16:23:44,468 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:25:02,001 - INFO - ✅ Sistema AI treinado para BTC/USDT | capital=10.00
+2025-08-15 16:25:58,582 - INFO - ✅ Sistema AI treinado para ETH/USDT | capital=10.00
+2025-08-15 16:27:17,719 - INFO - ✅ Sistema AI treinado para BNB/USDT | capital=10.00
+2025-08-15 16:29:01,484 - INFO - ✅ Sistema AI treinado para SOL/USDT | capital=10.00
+2025-08-15 16:31:06,296 - INFO - ✅ Sistema AI treinado para XRP/USDT | capital=10.00
+2025-08-15 16:33:03,707 - INFO - ✅ Sistema AI treinado para ADA/USDT | capital=10.00
+2025-08-15 16:35:29,350 - INFO - ✅ Sistema AI treinado para DOGE/USDT | capital=10.00
+2025-08-15 16:37:39,878 - INFO - ✅ Sistema AI treinado para TRX/USDT | capital=10.00
+2025-08-15 16:40:03,367 - INFO - ✅ Sistema AI treinado para LINK/USDT | capital=10.00
+2025-08-15 16:42:23,222 - INFO - ✅ Sistema AI treinado para AVAX/USDT | capital=10.00
+2025-08-15 16:42:23,967 - WARNING - ⚠️ Dados insuficientes para MATIC/USDT (38) - pulando
+2025-08-15 16:43:20,764 - INFO - ✅ Sistema AI treinado para DOT/USDT | capital=10.00
+2025-08-15 16:44:47,882 - INFO - ✅ Sistema AI treinado para LTC/USDT | capital=10.00
+2025-08-15 16:47:28,144 - INFO - ✅ Sistema AI treinado para ATOM/USDT | capital=10.00
+2025-08-15 16:47:29,471 - INFO - ✅ Sistema AI treinado para UNI/USDT | capital=10.00
+2025-08-15 16:47:29,802 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:47:29,804 - INFO - 💰 Saldo inicial: $0.00
+2025-08-15 16:47:29,805 - INFO - 🔄 Processando sinais...
+2025-08-15 16:47:30,291 - INFO - SINAL BTC/USDT | close=116987.5200 | ai_signal=0
+2025-08-15 16:47:30,304 - INFO - HOLD para BTC/USDT - Preço: $116987.52
+2025-08-15 16:47:30,754 - INFO - SINAL ETH/USDT | close=4398.5800 | ai_signal=0
+2025-08-15 16:47:30,768 - INFO - HOLD para ETH/USDT - Preço: $4398.58
+2025-08-15 16:47:31,232 - INFO - SINAL BNB/USDT | close=821.0000 | ai_signal=0
+2025-08-15 16:47:31,242 - INFO - HOLD para BNB/USDT - Preço: $821.00
+2025-08-15 16:47:31,723 - INFO - SINAL SOL/USDT | close=184.4300 | ai_signal=0
+2025-08-15 16:47:31,736 - INFO - HOLD para SOL/USDT - Preço: $184.43
+2025-08-15 16:47:32,217 - INFO - SINAL XRP/USDT | close=3.0659 | ai_signal=0
+2025-08-15 16:47:32,230 - INFO - HOLD para XRP/USDT - Preço: $3.07
+2025-08-15 16:47:32,727 - INFO - SINAL ADA/USDT | close=0.9319 | ai_signal=0
+2025-08-15 16:47:32,765 - INFO - HOLD para ADA/USDT - Preço: $0.93
+2025-08-15 16:47:33,170 - INFO - SINAL DOGE/USDT | close=0.2223 | ai_signal=0
+2025-08-15 16:47:33,180 - INFO - HOLD para DOGE/USDT - Preço: $0.22
+2025-08-15 16:47:33,656 - INFO - SINAL TRX/USDT | close=0.3509 | ai_signal=0
+2025-08-15 16:47:33,675 - INFO - HOLD para TRX/USDT - Preço: $0.35
+2025-08-15 16:47:34,114 - INFO - SINAL LINK/USDT | close=21.5300 | ai_signal=0
+2025-08-15 16:47:34,125 - INFO - HOLD para LINK/USDT - Preço: $21.53
+2025-08-15 16:47:34,643 - INFO - SINAL AVAX/USDT | close=23.5900 | ai_signal=0
+2025-08-15 16:47:34,662 - INFO - HOLD para AVAX/USDT - Preço: $23.59
+2025-08-15 16:47:34,667 - WARNING - ⚠️ Sistema AI não encontrado para MATIC/USDT
+2025-08-15 16:47:35,089 - INFO - SINAL DOT/USDT | close=3.8370 | ai_signal=0
+2025-08-15 16:47:35,107 - INFO - HOLD para DOT/USDT - Preço: $3.84
+2025-08-15 16:47:35,560 - INFO - SINAL LTC/USDT | close=117.6400 | ai_signal=0
+2025-08-15 16:47:35,577 - INFO - HOLD para LTC/USDT - Preço: $117.64
+2025-08-15 16:47:36,081 - INFO - SINAL ATOM/USDT | close=4.3940 | ai_signal=0
+2025-08-15 16:47:36,105 - INFO - HOLD para ATOM/USDT - Preço: $4.39
+2025-08-15 16:47:36,543 - INFO - SINAL UNI/USDT | close=10.5790 | ai_signal=0
+2025-08-15 16:47:36,563 - INFO - HOLD para UNI/USDT - Preço: $10.58
+2025-08-15 16:47:41,281 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:47:41,285 - INFO - ==================================================
+2025-08-15 16:47:41,285 - INFO - 💰 Saldo: $0.00
+2025-08-15 16:47:41,287 - INFO - 🏦 USDT Livre: $0.00
+2025-08-15 16:47:41,287 - INFO - 📊 Posições Abertas: 0
+2025-08-15 16:47:41,289 - INFO - 🎯 BTC/USDT: HOLD @ $116987.52
+2025-08-15 16:47:41,290 - INFO - 🎯 ETH/USDT: HOLD @ $4398.58
+2025-08-15 16:47:41,293 - INFO - 🎯 BNB/USDT: HOLD @ $821.00
+2025-08-15 16:47:41,294 - INFO - 🎯 SOL/USDT: HOLD @ $184.43
+2025-08-15 16:47:41,295 - INFO - 🎯 XRP/USDT: HOLD @ $3.07
+2025-08-15 16:47:41,296 - INFO - 🎯 ADA/USDT: HOLD @ $0.93
+2025-08-15 16:47:41,298 - INFO - 🎯 DOGE/USDT: HOLD @ $0.22
+2025-08-15 16:47:41,298 - INFO - 🎯 TRX/USDT: HOLD @ $0.35
+2025-08-15 16:47:41,299 - INFO - 🎯 LINK/USDT: HOLD @ $21.53
+2025-08-15 16:47:41,305 - INFO - 🎯 AVAX/USDT: HOLD @ $23.59
+2025-08-15 16:47:41,307 - INFO - 🎯 DOT/USDT: HOLD @ $3.84
+2025-08-15 16:47:41,316 - INFO - 🎯 LTC/USDT: HOLD @ $117.64
+2025-08-15 16:47:41,324 - INFO - 🎯 ATOM/USDT: HOLD @ $4.39
+2025-08-15 16:47:41,325 - INFO - 🎯 UNI/USDT: HOLD @ $10.58
+2025-08-15 16:48:41,327 - INFO - 🔄 Processando sinais...
+2025-08-15 16:48:41,726 - INFO - SINAL BTC/USDT | close=116955.0100 | ai_signal=0
+2025-08-15 16:48:41,769 - INFO - HOLD para BTC/USDT - Preço: $116955.01
+2025-08-15 16:48:42,168 - INFO - SINAL ETH/USDT | close=4395.6800 | ai_signal=0
+2025-08-15 16:48:42,199 - INFO - HOLD para ETH/USDT - Preço: $4395.68
+2025-08-15 16:48:42,693 - INFO - SINAL BNB/USDT | close=820.7500 | ai_signal=0
+2025-08-15 16:48:42,820 - INFO - HOLD para BNB/USDT - Preço: $820.75
+2025-08-15 16:48:43,381 - INFO - SINAL SOL/USDT | close=184.3400 | ai_signal=0
+2025-08-15 16:48:43,462 - INFO - HOLD para SOL/USDT - Preço: $184.34
+2025-08-15 16:48:43,880 - INFO - SINAL XRP/USDT | close=3.0661 | ai_signal=0
+2025-08-15 16:48:43,928 - INFO - HOLD para XRP/USDT - Preço: $3.07
+2025-08-15 16:48:44,320 - INFO - SINAL ADA/USDT | close=0.9317 | ai_signal=0
+2025-08-15 16:48:44,338 - INFO - HOLD para ADA/USDT - Preço: $0.93
+2025-08-15 16:48:44,838 - INFO - SINAL DOGE/USDT | close=0.2221 | ai_signal=0
+2025-08-15 16:48:44,875 - INFO - HOLD para DOGE/USDT - Preço: $0.22
+2025-08-15 16:48:45,365 - INFO - SINAL TRX/USDT | close=0.3509 | ai_signal=0
+2025-08-15 16:48:45,398 - INFO - HOLD para TRX/USDT - Preço: $0.35
+2025-08-15 16:48:45,832 - INFO - SINAL LINK/USDT | close=21.5200 | ai_signal=0
+2025-08-15 16:48:45,860 - INFO - HOLD para LINK/USDT - Preço: $21.52
+2025-08-15 16:48:46,292 - INFO - SINAL AVAX/USDT | close=23.5700 | ai_signal=0
+2025-08-15 16:48:46,318 - INFO - HOLD para AVAX/USDT - Preço: $23.57
+2025-08-15 16:48:46,327 - WARNING - ⚠️ Sistema AI não encontrado para MATIC/USDT
+2025-08-15 16:48:46,792 - INFO - SINAL DOT/USDT | close=3.8380 | ai_signal=0
+2025-08-15 16:48:46,825 - INFO - HOLD para DOT/USDT - Preço: $3.84
+2025-08-15 16:48:47,304 - INFO - SINAL LTC/USDT | close=117.6400 | ai_signal=0
+2025-08-15 16:48:47,345 - INFO - HOLD para LTC/USDT - Preço: $117.64
+2025-08-15 16:48:47,769 - INFO - SINAL ATOM/USDT | close=4.3940 | ai_signal=0
+2025-08-15 16:48:47,807 - INFO - HOLD para ATOM/USDT - Preço: $4.39
+2025-08-15 16:48:48,243 - INFO - SINAL UNI/USDT | close=10.5690 | ai_signal=0
+2025-08-15 16:48:48,268 - INFO - HOLD para UNI/USDT - Preço: $10.57
+2025-08-15 16:48:52,965 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:48:52,968 - INFO - ==================================================
+2025-08-15 16:48:52,969 - INFO - 💰 Saldo: $0.00
+2025-08-15 16:48:52,970 - INFO - 🏦 USDT Livre: $0.00
+2025-08-15 16:48:52,970 - INFO - 📊 Posições Abertas: 0
+2025-08-15 16:48:52,971 - INFO - 🎯 BTC/USDT: HOLD @ $116955.01
+2025-08-15 16:48:52,972 - INFO - 🎯 ETH/USDT: HOLD @ $4395.68
+2025-08-15 16:48:52,973 - INFO - 🎯 BNB/USDT: HOLD @ $820.75
+2025-08-15 16:48:52,973 - INFO - 🎯 SOL/USDT: HOLD @ $184.34
+2025-08-15 16:48:52,977 - INFO - 🎯 XRP/USDT: HOLD @ $3.07
+2025-08-15 16:48:52,979 - INFO - 🎯 ADA/USDT: HOLD @ $0.93
+2025-08-15 16:48:52,992 - INFO - 🎯 DOGE/USDT: HOLD @ $0.22
+2025-08-15 16:48:52,993 - INFO - 🎯 TRX/USDT: HOLD @ $0.35
+2025-08-15 16:48:52,994 - INFO - 🎯 LINK/USDT: HOLD @ $21.52
+2025-08-15 16:48:52,994 - INFO - 🎯 AVAX/USDT: HOLD @ $23.57
+2025-08-15 16:48:52,995 - INFO - 🎯 DOT/USDT: HOLD @ $3.84
+2025-08-15 16:48:52,996 - INFO - 🎯 LTC/USDT: HOLD @ $117.64
+2025-08-15 16:48:52,997 - INFO - 🎯 ATOM/USDT: HOLD @ $4.39
+2025-08-15 16:48:52,997 - INFO - 🎯 UNI/USDT: HOLD @ $10.57
+2025-08-15 16:49:52,999 - INFO - 🔄 Processando sinais...
+2025-08-15 16:49:53,362 - INFO - SINAL BTC/USDT | close=116935.0000 | ai_signal=0
+2025-08-15 16:49:53,416 - INFO - HOLD para BTC/USDT - Preço: $116935.00
+2025-08-15 16:49:53,826 - INFO - SINAL ETH/USDT | close=4392.0000 | ai_signal=0
+2025-08-15 16:49:53,845 - INFO - HOLD para ETH/USDT - Preço: $4392.00
+2025-08-15 16:49:54,311 - INFO - SINAL BNB/USDT | close=821.0900 | ai_signal=0
+2025-08-15 16:49:54,338 - INFO - HOLD para BNB/USDT - Preço: $821.09
+2025-08-15 16:49:54,826 - INFO - SINAL SOL/USDT | close=184.4400 | ai_signal=0
+2025-08-15 16:49:54,840 - INFO - HOLD para SOL/USDT - Preço: $184.44
+2025-08-15 16:49:55,296 - INFO - SINAL XRP/USDT | close=3.0673 | ai_signal=0
+2025-08-15 16:49:55,317 - INFO - HOLD para XRP/USDT - Preço: $3.07
+2025-08-15 16:49:55,774 - INFO - SINAL ADA/USDT | close=0.9321 | ai_signal=0
+2025-08-15 16:49:55,804 - INFO - HOLD para ADA/USDT - Preço: $0.93
+2025-08-15 16:49:56,293 - INFO - SINAL DOGE/USDT | close=0.2221 | ai_signal=0
+2025-08-15 16:49:56,336 - INFO - HOLD para DOGE/USDT - Preço: $0.22
+2025-08-15 16:49:56,737 - INFO - SINAL TRX/USDT | close=0.3509 | ai_signal=0
+2025-08-15 16:49:56,754 - INFO - HOLD para TRX/USDT - Preço: $0.35
+2025-08-15 16:49:57,224 - INFO - SINAL LINK/USDT | close=21.5500 | ai_signal=0
+2025-08-15 16:49:57,237 - INFO - HOLD para LINK/USDT - Preço: $21.55
+2025-08-15 16:49:57,726 - INFO - SINAL AVAX/USDT | close=23.6000 | ai_signal=0
+2025-08-15 16:49:57,741 - INFO - HOLD para AVAX/USDT - Preço: $23.60
+2025-08-15 16:49:57,745 - WARNING - ⚠️ Sistema AI não encontrado para MATIC/USDT
+2025-08-15 16:49:58,190 - INFO - SINAL DOT/USDT | close=3.8380 | ai_signal=0
+2025-08-15 16:49:58,209 - INFO - HOLD para DOT/USDT - Preço: $3.84
+2025-08-15 16:49:58,666 - INFO - SINAL LTC/USDT | close=117.6700 | ai_signal=0
+2025-08-15 16:49:58,697 - INFO - HOLD para LTC/USDT - Preço: $117.67
+2025-08-15 16:49:59,168 - INFO - SINAL ATOM/USDT | close=4.3940 | ai_signal=0
+2025-08-15 16:49:59,187 - INFO - HOLD para ATOM/USDT - Preço: $4.39
+2025-08-15 16:49:59,672 - INFO - SINAL UNI/USDT | close=10.5790 | ai_signal=0
+2025-08-15 16:49:59,699 - INFO - HOLD para UNI/USDT - Preço: $10.58
+2025-08-15 16:50:04,371 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:50:04,377 - INFO - ==================================================
+2025-08-15 16:50:04,381 - INFO - 💰 Saldo: $0.00
+2025-08-15 16:50:04,387 - INFO - 🏦 USDT Livre: $0.00
+2025-08-15 16:50:04,394 - INFO - 📊 Posições Abertas: 0
+2025-08-15 16:50:04,396 - INFO - 🎯 BTC/USDT: HOLD @ $116935.00
+2025-08-15 16:50:04,405 - INFO - 🎯 ETH/USDT: HOLD @ $4392.00
+2025-08-15 16:50:04,408 - INFO - 🎯 BNB/USDT: HOLD @ $821.09
+2025-08-15 16:50:04,409 - INFO - 🎯 SOL/USDT: HOLD @ $184.44
+2025-08-15 16:50:04,413 - INFO - 🎯 XRP/USDT: HOLD @ $3.07
+2025-08-15 16:50:04,431 - INFO - 🎯 ADA/USDT: HOLD @ $0.93
+2025-08-15 16:50:04,435 - INFO - 🎯 DOGE/USDT: HOLD @ $0.22
+2025-08-15 16:50:04,470 - INFO - 🎯 TRX/USDT: HOLD @ $0.35
+2025-08-15 16:50:04,478 - INFO - 🎯 LINK/USDT: HOLD @ $21.55
+2025-08-15 16:50:04,481 - INFO - 🎯 AVAX/USDT: HOLD @ $23.60
+2025-08-15 16:50:04,499 - INFO - 🎯 DOT/USDT: HOLD @ $3.84
+2025-08-15 16:50:04,508 - INFO - 🎯 LTC/USDT: HOLD @ $117.67
+2025-08-15 16:50:04,517 - INFO - 🎯 ATOM/USDT: HOLD @ $4.39
+2025-08-15 16:50:04,525 - INFO - 🎯 UNI/USDT: HOLD @ $10.58
+2025-08-15 16:51:04,541 - INFO - 🔄 Processando sinais...
+2025-08-15 16:51:04,896 - INFO - SINAL BTC/USDT | close=116889.0100 | ai_signal=0
+2025-08-15 16:51:04,914 - INFO - HOLD para BTC/USDT - Preço: $116889.01
+2025-08-15 16:51:05,382 - INFO - SINAL ETH/USDT | close=4385.6500 | ai_signal=0
+2025-08-15 16:51:05,398 - INFO - HOLD para ETH/USDT - Preço: $4385.65
+2025-08-15 16:51:05,852 - INFO - SINAL BNB/USDT | close=820.9300 | ai_signal=0
+2025-08-15 16:51:05,865 - INFO - HOLD para BNB/USDT - Preço: $820.93
+2025-08-15 16:51:06,310 - INFO - SINAL SOL/USDT | close=184.1200 | ai_signal=0
+2025-08-15 16:51:06,321 - INFO - HOLD para SOL/USDT - Preço: $184.12
+2025-08-15 16:51:06,803 - INFO - SINAL XRP/USDT | close=3.0629 | ai_signal=0
+2025-08-15 16:51:06,818 - INFO - HOLD para XRP/USDT - Preço: $3.06
+2025-08-15 16:51:07,275 - INFO - SINAL ADA/USDT | close=0.9321 | ai_signal=0
+2025-08-15 16:51:07,291 - INFO - HOLD para ADA/USDT - Preço: $0.93
+2025-08-15 16:51:07,783 - INFO - SINAL DOGE/USDT | close=0.2221 | ai_signal=0
+2025-08-15 16:51:07,803 - INFO - HOLD para DOGE/USDT - Preço: $0.22
+2025-08-15 16:51:08,255 - INFO - SINAL TRX/USDT | close=0.3509 | ai_signal=0
+2025-08-15 16:51:08,266 - INFO - HOLD para TRX/USDT - Preço: $0.35
+2025-08-15 16:51:08,719 - INFO - SINAL LINK/USDT | close=21.5100 | ai_signal=0
+2025-08-15 16:51:08,731 - INFO - HOLD para LINK/USDT - Preço: $21.51
+2025-08-15 16:51:09,196 - INFO - SINAL AVAX/USDT | close=23.5500 | ai_signal=0
+2025-08-15 16:51:09,207 - INFO - HOLD para AVAX/USDT - Preço: $23.55
+2025-08-15 16:51:09,209 - WARNING - ⚠️ Sistema AI não encontrado para MATIC/USDT
+2025-08-15 16:51:09,723 - INFO - SINAL DOT/USDT | close=3.8360 | ai_signal=0
+2025-08-15 16:51:09,745 - INFO - HOLD para DOT/USDT - Preço: $3.84
+2025-08-15 16:51:10,213 - INFO - SINAL LTC/USDT | close=117.6300 | ai_signal=0
+2025-08-15 16:51:10,256 - INFO - HOLD para LTC/USDT - Preço: $117.63
+2025-08-15 16:51:10,657 - INFO - SINAL ATOM/USDT | close=4.3940 | ai_signal=0
+2025-08-15 16:51:10,679 - INFO - HOLD para ATOM/USDT - Preço: $4.39
+2025-08-15 16:51:11,154 - INFO - SINAL UNI/USDT | close=10.5670 | ai_signal=0
+2025-08-15 16:51:11,168 - INFO - HOLD para UNI/USDT - Preço: $10.57
+2025-08-15 16:51:15,916 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:51:15,919 - INFO - ==================================================
+2025-08-15 16:51:15,920 - INFO - 💰 Saldo: $0.00
+2025-08-15 16:51:15,928 - INFO - 🏦 USDT Livre: $0.00
+2025-08-15 16:51:15,929 - INFO - 📊 Posições Abertas: 0
+2025-08-15 16:51:15,930 - INFO - 🎯 BTC/USDT: HOLD @ $116889.01
+2025-08-15 16:51:15,936 - INFO - 🎯 ETH/USDT: HOLD @ $4385.65
+2025-08-15 16:51:15,938 - INFO - 🎯 BNB/USDT: HOLD @ $820.93
+2025-08-15 16:51:15,939 - INFO - 🎯 SOL/USDT: HOLD @ $184.12
+2025-08-15 16:51:15,940 - INFO - 🎯 XRP/USDT: HOLD @ $3.06
+2025-08-15 16:51:15,944 - INFO - 🎯 ADA/USDT: HOLD @ $0.93
+2025-08-15 16:51:15,946 - INFO - 🎯 DOGE/USDT: HOLD @ $0.22
+2025-08-15 16:51:15,947 - INFO - 🎯 TRX/USDT: HOLD @ $0.35
+2025-08-15 16:51:15,948 - INFO - 🎯 LINK/USDT: HOLD @ $21.51
+2025-08-15 16:51:15,957 - INFO - 🎯 AVAX/USDT: HOLD @ $23.55
+2025-08-15 16:51:15,960 - INFO - 🎯 DOT/USDT: HOLD @ $3.84
+2025-08-15 16:51:15,966 - INFO - 🎯 LTC/USDT: HOLD @ $117.63
+2025-08-15 16:51:15,967 - INFO - 🎯 ATOM/USDT: HOLD @ $4.39
+2025-08-15 16:51:15,968 - INFO - 🎯 UNI/USDT: HOLD @ $10.57
+2025-08-15 16:52:15,971 - INFO - 🔄 Processando sinais...
+2025-08-15 16:52:16,312 - INFO - SINAL BTC/USDT | close=116880.0100 | ai_signal=0
+2025-08-15 16:52:16,333 - INFO - HOLD para BTC/USDT - Preço: $116880.01
+2025-08-15 16:52:16,788 - INFO - SINAL ETH/USDT | close=4387.5900 | ai_signal=0
+2025-08-15 16:52:16,807 - INFO - HOLD para ETH/USDT - Preço: $4387.59
+2025-08-15 16:52:17,260 - INFO - SINAL BNB/USDT | close=820.4800 | ai_signal=0
+2025-08-15 16:52:17,270 - INFO - HOLD para BNB/USDT - Preço: $820.48
+2025-08-15 16:52:17,731 - INFO - SINAL SOL/USDT | close=184.1900 | ai_signal=0
+2025-08-15 16:52:17,741 - INFO - HOLD para SOL/USDT - Preço: $184.19
+2025-08-15 16:52:18,228 - INFO - SINAL XRP/USDT | close=3.0627 | ai_signal=0
+2025-08-15 16:52:18,242 - INFO - HOLD para XRP/USDT - Preço: $3.06
+2025-08-15 16:52:18,709 - INFO - SINAL ADA/USDT | close=0.9321 | ai_signal=0
+2025-08-15 16:52:18,729 - INFO - HOLD para ADA/USDT - Preço: $0.93
+2025-08-15 16:52:19,187 - INFO - SINAL DOGE/USDT | close=0.2218 | ai_signal=0
+2025-08-15 16:52:19,198 - INFO - HOLD para DOGE/USDT - Preço: $0.22
+2025-08-15 16:52:19,669 - INFO - SINAL TRX/USDT | close=0.3509 | ai_signal=0
+2025-08-15 16:52:19,689 - INFO - HOLD para TRX/USDT - Preço: $0.35
+2025-08-15 16:52:20,160 - INFO - SINAL LINK/USDT | close=21.4700 | ai_signal=0
+2025-08-15 16:52:20,179 - INFO - HOLD para LINK/USDT - Preço: $21.47
+2025-08-15 16:52:20,641 - INFO - SINAL AVAX/USDT | close=23.5500 | ai_signal=0
+2025-08-15 16:52:20,652 - INFO - HOLD para AVAX/USDT - Preço: $23.55
+2025-08-15 16:52:20,653 - WARNING - ⚠️ Sistema AI não encontrado para MATIC/USDT
+2025-08-15 16:52:21,108 - INFO - SINAL DOT/USDT | close=3.8360 | ai_signal=0
+2025-08-15 16:52:21,127 - INFO - HOLD para DOT/USDT - Preço: $3.84
+2025-08-15 16:52:21,624 - INFO - SINAL LTC/USDT | close=117.7200 | ai_signal=0
+2025-08-15 16:52:21,649 - INFO - HOLD para LTC/USDT - Preço: $117.72
+2025-08-15 16:52:22,080 - INFO - SINAL ATOM/USDT | close=4.3940 | ai_signal=0
+2025-08-15 16:52:22,110 - INFO - HOLD para ATOM/USDT - Preço: $4.39
+2025-08-15 16:52:22,561 - INFO - SINAL UNI/USDT | close=10.5700 | ai_signal=0
+2025-08-15 16:52:22,578 - INFO - HOLD para UNI/USDT - Preço: $10.57
+2025-08-15 16:52:27,815 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:52:27,818 - INFO - ==================================================
+2025-08-15 16:52:27,818 - INFO - 💰 Saldo: $0.00
+2025-08-15 16:52:27,819 - INFO - 🏦 USDT Livre: $0.00
+2025-08-15 16:52:27,825 - INFO - 📊 Posições Abertas: 0
+2025-08-15 16:52:27,826 - INFO - 🎯 BTC/USDT: HOLD @ $116880.01
+2025-08-15 16:52:27,827 - INFO - 🎯 ETH/USDT: HOLD @ $4387.59
+2025-08-15 16:52:27,831 - INFO - 🎯 BNB/USDT: HOLD @ $820.48
+2025-08-15 16:52:27,832 - INFO - 🎯 SOL/USDT: HOLD @ $184.19
+2025-08-15 16:52:27,833 - INFO - 🎯 XRP/USDT: HOLD @ $3.06
+2025-08-15 16:52:27,834 - INFO - 🎯 ADA/USDT: HOLD @ $0.93
+2025-08-15 16:52:27,835 - INFO - 🎯 DOGE/USDT: HOLD @ $0.22
+2025-08-15 16:52:27,849 - INFO - 🎯 TRX/USDT: HOLD @ $0.35
+2025-08-15 16:52:27,852 - INFO - 🎯 LINK/USDT: HOLD @ $21.47
+2025-08-15 16:52:27,856 - INFO - 🎯 AVAX/USDT: HOLD @ $23.55
+2025-08-15 16:52:27,859 - INFO - 🎯 DOT/USDT: HOLD @ $3.84
+2025-08-15 16:52:27,860 - INFO - 🎯 LTC/USDT: HOLD @ $117.72
+2025-08-15 16:52:27,861 - INFO - 🎯 ATOM/USDT: HOLD @ $4.39
+2025-08-15 16:52:27,861 - INFO - 🎯 UNI/USDT: HOLD @ $10.57
+2025-08-15 16:53:27,865 - INFO - 🔄 Processando sinais...
+2025-08-15 16:53:28,407 - INFO - SINAL BTC/USDT | close=116877.2400 | ai_signal=0
+2025-08-15 16:53:28,411 - INFO - HOLD para BTC/USDT - Preço: $116877.24
+2025-08-15 16:53:28,704 - INFO - SINAL ETH/USDT | close=4381.8300 | ai_signal=0
+2025-08-15 16:53:28,708 - INFO - HOLD para ETH/USDT - Preço: $4381.83
+2025-08-15 16:53:29,200 - INFO - SINAL BNB/USDT | close=820.0400 | ai_signal=0
+2025-08-15 16:53:29,209 - INFO - HOLD para BNB/USDT - Preço: $820.04
+2025-08-15 16:53:29,687 - INFO - SINAL SOL/USDT | close=184.0200 | ai_signal=0
+2025-08-15 16:53:29,696 - INFO - HOLD para SOL/USDT - Preço: $184.02
+2025-08-15 16:53:30,188 - INFO - SINAL XRP/USDT | close=3.0621 | ai_signal=0
+2025-08-15 16:53:30,195 - INFO - HOLD para XRP/USDT - Preço: $3.06
+2025-08-15 16:53:30,680 - INFO - SINAL ADA/USDT | close=0.9311 | ai_signal=0
+2025-08-15 16:53:30,692 - INFO - HOLD para ADA/USDT - Preço: $0.93
+2025-08-15 16:53:31,127 - INFO - SINAL DOGE/USDT | close=0.2218 | ai_signal=0
+2025-08-15 16:53:31,134 - INFO - HOLD para DOGE/USDT - Preço: $0.22
+2025-08-15 16:53:31,596 - INFO - SINAL TRX/USDT | close=0.3509 | ai_signal=0
+2025-08-15 16:53:31,604 - INFO - HOLD para TRX/USDT - Preço: $0.35
+2025-08-15 16:53:32,138 - INFO - SINAL LINK/USDT | close=21.4600 | ai_signal=0
+2025-08-15 16:53:32,151 - INFO - HOLD para LINK/USDT - Preço: $21.46
+2025-08-15 16:53:32,631 - INFO - SINAL AVAX/USDT | close=23.5200 | ai_signal=0
+2025-08-15 16:53:32,661 - INFO - HOLD para AVAX/USDT - Preço: $23.52
+2025-08-15 16:53:32,729 - WARNING - ⚠️ Sistema AI não encontrado para MATIC/USDT
+2025-08-15 16:53:33,192 - INFO - SINAL DOT/USDT | close=3.8350 | ai_signal=0
+2025-08-15 16:53:33,199 - INFO - HOLD para DOT/USDT - Preço: $3.83
+2025-08-15 16:53:33,662 - INFO - SINAL LTC/USDT | close=117.6500 | ai_signal=0
+2025-08-15 16:53:33,668 - INFO - HOLD para LTC/USDT - Preço: $117.65
+2025-08-15 16:53:34,139 - INFO - SINAL ATOM/USDT | close=4.3940 | ai_signal=0
+2025-08-15 16:53:34,146 - INFO - HOLD para ATOM/USDT - Preço: $4.39
+2025-08-15 16:53:34,604 - INFO - SINAL UNI/USDT | close=10.5700 | ai_signal=0
+2025-08-15 16:53:34,609 - INFO - HOLD para UNI/USDT - Preço: $10.57
+2025-08-15 16:53:39,386 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:53:39,387 - INFO - ==================================================
+2025-08-15 16:53:39,387 - INFO - 💰 Saldo: $0.00
+2025-08-15 16:53:39,388 - INFO - 🏦 USDT Livre: $0.00
+2025-08-15 16:53:39,389 - INFO - 📊 Posições Abertas: 0
+2025-08-15 16:53:39,389 - INFO - 🎯 BTC/USDT: HOLD @ $116877.24
+2025-08-15 16:53:39,390 - INFO - 🎯 ETH/USDT: HOLD @ $4381.83
+2025-08-15 16:53:39,390 - INFO - 🎯 BNB/USDT: HOLD @ $820.04
+2025-08-15 16:53:39,390 - INFO - 🎯 SOL/USDT: HOLD @ $184.02
+2025-08-15 16:53:39,391 - INFO - 🎯 XRP/USDT: HOLD @ $3.06
+2025-08-15 16:53:39,391 - INFO - 🎯 ADA/USDT: HOLD @ $0.93
+2025-08-15 16:53:39,391 - INFO - 🎯 DOGE/USDT: HOLD @ $0.22
+2025-08-15 16:53:39,391 - INFO - 🎯 TRX/USDT: HOLD @ $0.35
+2025-08-15 16:53:39,392 - INFO - 🎯 LINK/USDT: HOLD @ $21.46
+2025-08-15 16:53:39,392 - INFO - 🎯 AVAX/USDT: HOLD @ $23.52
+2025-08-15 16:53:39,392 - INFO - 🎯 DOT/USDT: HOLD @ $3.83
+2025-08-15 16:53:39,393 - INFO - 🎯 LTC/USDT: HOLD @ $117.65
+2025-08-15 16:53:39,393 - INFO - 🎯 ATOM/USDT: HOLD @ $4.39
+2025-08-15 16:53:39,393 - INFO - 🎯 UNI/USDT: HOLD @ $10.57
+2025-08-15 16:54:39,394 - INFO - 🔄 Processando sinais...
+2025-08-15 16:54:39,715 - INFO - SINAL BTC/USDT | close=116884.2000 | ai_signal=0
+2025-08-15 16:54:39,719 - INFO - HOLD para BTC/USDT - Preço: $116884.20
+2025-08-15 16:54:40,188 - INFO - SINAL ETH/USDT | close=4384.0300 | ai_signal=0
+2025-08-15 16:54:40,193 - INFO - HOLD para ETH/USDT - Preço: $4384.03
+2025-08-15 16:54:40,669 - INFO - SINAL BNB/USDT | close=820.1900 | ai_signal=0
+2025-08-15 16:54:40,674 - INFO - HOLD para BNB/USDT - Preço: $820.19
+2025-08-15 16:54:41,133 - INFO - SINAL SOL/USDT | close=184.1000 | ai_signal=0
+2025-08-15 16:54:41,138 - INFO - HOLD para SOL/USDT - Preço: $184.10
+2025-08-15 16:54:41,610 - INFO - SINAL XRP/USDT | close=3.0625 | ai_signal=0
+2025-08-15 16:54:41,616 - INFO - HOLD para XRP/USDT - Preço: $3.06
+2025-08-15 16:54:42,107 - INFO - SINAL ADA/USDT | close=0.9311 | ai_signal=0
+2025-08-15 16:54:42,111 - INFO - HOLD para ADA/USDT - Preço: $0.93
+2025-08-15 16:54:42,592 - INFO - SINAL DOGE/USDT | close=0.2220 | ai_signal=0
+2025-08-15 16:54:42,595 - INFO - HOLD para DOGE/USDT - Preço: $0.22
+2025-08-15 16:54:43,055 - INFO - SINAL TRX/USDT | close=0.3509 | ai_signal=0
+2025-08-15 16:54:43,058 - INFO - HOLD para TRX/USDT - Preço: $0.35
+2025-08-15 16:54:43,551 - INFO - SINAL LINK/USDT | close=21.4700 | ai_signal=0
+2025-08-15 16:54:43,556 - INFO - HOLD para LINK/USDT - Preço: $21.47
+2025-08-15 16:54:44,025 - INFO - SINAL AVAX/USDT | close=23.5200 | ai_signal=0
+2025-08-15 16:54:44,030 - INFO - HOLD para AVAX/USDT - Preço: $23.52
+2025-08-15 16:54:44,031 - WARNING - ⚠️ Sistema AI não encontrado para MATIC/USDT
+2025-08-15 16:54:44,492 - INFO - SINAL DOT/USDT | close=3.8360 | ai_signal=0
+2025-08-15 16:54:44,497 - INFO - HOLD para DOT/USDT - Preço: $3.84
+2025-08-15 16:54:44,964 - INFO - SINAL LTC/USDT | close=117.6700 | ai_signal=0
+2025-08-15 16:54:44,967 - INFO - HOLD para LTC/USDT - Preço: $117.67
+2025-08-15 16:54:45,463 - INFO - SINAL ATOM/USDT | close=4.3940 | ai_signal=0
+2025-08-15 16:54:45,467 - INFO - HOLD para ATOM/USDT - Preço: $4.39
+2025-08-15 16:54:45,944 - INFO - SINAL UNI/USDT | close=10.5700 | ai_signal=0
+2025-08-15 16:54:45,949 - INFO - HOLD para UNI/USDT - Preço: $10.57
+2025-08-15 16:54:50,718 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:54:50,718 - INFO - ==================================================
+2025-08-15 16:54:50,719 - INFO - 💰 Saldo: $0.00
+2025-08-15 16:54:50,719 - INFO - 🏦 USDT Livre: $0.00
+2025-08-15 16:54:50,719 - INFO - 📊 Posições Abertas: 0
+2025-08-15 16:54:50,720 - INFO - 🎯 BTC/USDT: HOLD @ $116884.20
+2025-08-15 16:54:50,720 - INFO - 🎯 ETH/USDT: HOLD @ $4384.03
+2025-08-15 16:54:50,720 - INFO - 🎯 BNB/USDT: HOLD @ $820.19
+2025-08-15 16:54:50,721 - INFO - 🎯 SOL/USDT: HOLD @ $184.10
+2025-08-15 16:54:50,721 - INFO - 🎯 XRP/USDT: HOLD @ $3.06
+2025-08-15 16:54:50,721 - INFO - 🎯 ADA/USDT: HOLD @ $0.93
+2025-08-15 16:54:50,721 - INFO - 🎯 DOGE/USDT: HOLD @ $0.22
+2025-08-15 16:54:50,722 - INFO - 🎯 TRX/USDT: HOLD @ $0.35
+2025-08-15 16:54:50,722 - INFO - 🎯 LINK/USDT: HOLD @ $21.47
+2025-08-15 16:54:50,722 - INFO - 🎯 AVAX/USDT: HOLD @ $23.52
+2025-08-15 16:54:50,722 - INFO - 🎯 DOT/USDT: HOLD @ $3.84
+2025-08-15 16:54:50,723 - INFO - 🎯 LTC/USDT: HOLD @ $117.67
+2025-08-15 16:54:50,723 - INFO - 🎯 ATOM/USDT: HOLD @ $4.39
+2025-08-15 16:54:50,724 - INFO - 🎯 UNI/USDT: HOLD @ $10.57
+2025-08-15 16:55:50,725 - INFO - 🔄 Processando sinais...
+2025-08-15 16:55:51,040 - INFO - SINAL BTC/USDT | close=116866.0100 | ai_signal=0
+2025-08-15 16:55:51,049 - INFO - HOLD para BTC/USDT - Preço: $116866.01
+2025-08-15 16:55:51,502 - INFO - SINAL ETH/USDT | close=4380.0100 | ai_signal=0
+2025-08-15 16:55:51,507 - INFO - HOLD para ETH/USDT - Preço: $4380.01
+2025-08-15 16:55:51,975 - INFO - SINAL BNB/USDT | close=820.3700 | ai_signal=0
+2025-08-15 16:55:51,979 - INFO - HOLD para BNB/USDT - Preço: $820.37
+2025-08-15 16:55:52,467 - INFO - SINAL SOL/USDT | close=183.9300 | ai_signal=0
+2025-08-15 16:55:52,471 - INFO - HOLD para SOL/USDT - Preço: $183.93
+2025-08-15 16:55:52,955 - INFO - SINAL XRP/USDT | close=3.0612 | ai_signal=0
+2025-08-15 16:55:52,961 - INFO - HOLD para XRP/USDT - Preço: $3.06
+2025-08-15 16:55:53,426 - INFO - SINAL ADA/USDT | close=0.9311 | ai_signal=0
+2025-08-15 16:55:53,430 - INFO - HOLD para ADA/USDT - Preço: $0.93
+2025-08-15 16:55:53,903 - INFO - SINAL DOGE/USDT | close=0.2219 | ai_signal=0
+2025-08-15 16:55:53,906 - INFO - HOLD para DOGE/USDT - Preço: $0.22
+2025-08-15 16:55:54,386 - INFO - SINAL TRX/USDT | close=0.3504 | ai_signal=0
+2025-08-15 16:55:54,390 - INFO - HOLD para TRX/USDT - Preço: $0.35
+2025-08-15 16:55:54,864 - INFO - SINAL LINK/USDT | close=21.4400 | ai_signal=0
+2025-08-15 16:55:54,866 - INFO - HOLD para LINK/USDT - Preço: $21.44
+2025-08-15 16:55:55,342 - INFO - SINAL AVAX/USDT | close=23.5200 | ai_signal=0
+2025-08-15 16:55:55,347 - INFO - HOLD para AVAX/USDT - Preço: $23.52
+2025-08-15 16:55:55,347 - WARNING - ⚠️ Sistema AI não encontrado para MATIC/USDT
+2025-08-15 16:55:55,833 - INFO - SINAL DOT/USDT | close=3.8350 | ai_signal=0
+2025-08-15 16:55:55,842 - INFO - HOLD para DOT/USDT - Preço: $3.83
+2025-08-15 16:55:56,323 - INFO - SINAL LTC/USDT | close=117.4800 | ai_signal=0
+2025-08-15 16:55:56,329 - INFO - HOLD para LTC/USDT - Preço: $117.48
+2025-08-15 16:55:56,793 - INFO - SINAL ATOM/USDT | close=4.3940 | ai_signal=0
+2025-08-15 16:55:56,799 - INFO - HOLD para ATOM/USDT - Preço: $4.39
+2025-08-15 16:55:57,263 - INFO - SINAL UNI/USDT | close=10.5580 | ai_signal=0
+2025-08-15 16:55:57,266 - INFO - HOLD para UNI/USDT - Preço: $10.56
+2025-08-15 16:56:02,058 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:56:02,058 - INFO - ==================================================
+2025-08-15 16:56:02,059 - INFO - 💰 Saldo: $0.00
+2025-08-15 16:56:02,059 - INFO - 🏦 USDT Livre: $0.00
+2025-08-15 16:56:02,060 - INFO - 📊 Posições Abertas: 0
+2025-08-15 16:56:02,060 - INFO - 🎯 BTC/USDT: HOLD @ $116866.01
+2025-08-15 16:56:02,061 - INFO - 🎯 ETH/USDT: HOLD @ $4380.01
+2025-08-15 16:56:02,061 - INFO - 🎯 BNB/USDT: HOLD @ $820.37
+2025-08-15 16:56:02,062 - INFO - 🎯 SOL/USDT: HOLD @ $183.93
+2025-08-15 16:56:02,062 - INFO - 🎯 XRP/USDT: HOLD @ $3.06
+2025-08-15 16:56:02,062 - INFO - 🎯 ADA/USDT: HOLD @ $0.93
+2025-08-15 16:56:02,063 - INFO - 🎯 DOGE/USDT: HOLD @ $0.22
+2025-08-15 16:56:02,063 - INFO - 🎯 TRX/USDT: HOLD @ $0.35
+2025-08-15 16:56:02,063 - INFO - 🎯 LINK/USDT: HOLD @ $21.44
+2025-08-15 16:56:02,064 - INFO - 🎯 AVAX/USDT: HOLD @ $23.52
+2025-08-15 16:56:02,064 - INFO - 🎯 DOT/USDT: HOLD @ $3.83
+2025-08-15 16:56:02,064 - INFO - 🎯 LTC/USDT: HOLD @ $117.48
+2025-08-15 16:56:02,064 - INFO - 🎯 ATOM/USDT: HOLD @ $4.39
+2025-08-15 16:56:02,065 - INFO - 🎯 UNI/USDT: HOLD @ $10.56
+2025-08-15 16:57:02,066 - INFO - 🔄 Processando sinais...
+2025-08-15 16:57:02,425 - INFO - SINAL BTC/USDT | close=116940.0000 | ai_signal=0
+2025-08-15 16:57:02,465 - INFO - HOLD para BTC/USDT - Preço: $116940.00
+2025-08-15 16:57:02,930 - INFO - SINAL ETH/USDT | close=4203.3100 | ai_signal=0
+2025-08-15 16:57:02,960 - INFO - HOLD para ETH/USDT - Preço: $4203.31
+2025-08-15 16:57:03,381 - INFO - SINAL BNB/USDT | close=820.6900 | ai_signal=0
+2025-08-15 16:57:03,397 - INFO - HOLD para BNB/USDT - Preço: $820.69
+2025-08-15 16:57:03,888 - INFO - SINAL SOL/USDT | close=183.9300 | ai_signal=0
+2025-08-15 16:57:03,944 - INFO - HOLD para SOL/USDT - Preço: $183.93
+2025-08-15 16:57:04,345 - INFO - SINAL XRP/USDT | close=3.0639 | ai_signal=0
+2025-08-15 16:57:04,363 - INFO - HOLD para XRP/USDT - Preço: $3.06
+2025-08-15 16:57:04,832 - INFO - SINAL ADA/USDT | close=0.9311 | ai_signal=0
+2025-08-15 16:57:04,857 - INFO - HOLD para ADA/USDT - Preço: $0.93
+2025-08-15 16:57:05,301 - INFO - SINAL DOGE/USDT | close=0.2217 | ai_signal=0
+2025-08-15 16:57:05,317 - INFO - HOLD para DOGE/USDT - Preço: $0.22
+2025-08-15 16:57:05,779 - INFO - SINAL TRX/USDT | close=0.3504 | ai_signal=0
+2025-08-15 16:57:05,788 - INFO - HOLD para TRX/USDT - Preço: $0.35
+2025-08-15 16:57:06,280 - INFO - SINAL LINK/USDT | close=21.4500 | ai_signal=0
+2025-08-15 16:57:06,306 - INFO - HOLD para LINK/USDT - Preço: $21.45
+2025-08-15 16:57:06,749 - INFO - SINAL AVAX/USDT | close=23.5200 | ai_signal=0
+2025-08-15 16:57:06,777 - INFO - HOLD para AVAX/USDT - Preço: $23.52
+2025-08-15 16:57:06,782 - WARNING - ⚠️ Sistema AI não encontrado para MATIC/USDT
+2025-08-15 16:57:07,235 - INFO - SINAL DOT/USDT | close=3.8340 | ai_signal=0
+2025-08-15 16:57:07,256 - INFO - HOLD para DOT/USDT - Preço: $3.83
+2025-08-15 16:57:07,676 - INFO - SINAL LTC/USDT | close=117.6100 | ai_signal=0
+2025-08-15 16:57:07,681 - INFO - HOLD para LTC/USDT - Preço: $117.61
+2025-08-15 16:57:08,182 - INFO - SINAL ATOM/USDT | close=4.3940 | ai_signal=0
+2025-08-15 16:57:08,204 - INFO - HOLD para ATOM/USDT - Preço: $4.39
+2025-08-15 16:57:08,691 - INFO - SINAL UNI/USDT | close=10.5690 | ai_signal=0
+2025-08-15 16:57:08,709 - INFO - HOLD para UNI/USDT - Preço: $10.57
+2025-08-15 16:57:13,421 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:57:13,431 - INFO - ==================================================
+2025-08-15 16:57:13,442 - INFO - 💰 Saldo: $0.00
+2025-08-15 16:57:13,443 - INFO - 🏦 USDT Livre: $0.00
+2025-08-15 16:57:13,444 - INFO - 📊 Posições Abertas: 0
+2025-08-15 16:57:13,445 - INFO - 🎯 BTC/USDT: HOLD @ $116940.00
+2025-08-15 16:57:13,450 - INFO - 🎯 ETH/USDT: HOLD @ $4203.31
+2025-08-15 16:57:13,457 - INFO - 🎯 BNB/USDT: HOLD @ $820.69
+2025-08-15 16:57:13,458 - INFO - 🎯 SOL/USDT: HOLD @ $183.93
+2025-08-15 16:57:13,461 - INFO - 🎯 XRP/USDT: HOLD @ $3.06
+2025-08-15 16:57:13,462 - INFO - 🎯 ADA/USDT: HOLD @ $0.93
+2025-08-15 16:57:13,466 - INFO - 🎯 DOGE/USDT: HOLD @ $0.22
+2025-08-15 16:57:13,469 - INFO - 🎯 TRX/USDT: HOLD @ $0.35
+2025-08-15 16:57:13,470 - INFO - 🎯 LINK/USDT: HOLD @ $21.45
+2025-08-15 16:57:13,471 - INFO - 🎯 AVAX/USDT: HOLD @ $23.52
+2025-08-15 16:57:13,471 - INFO - 🎯 DOT/USDT: HOLD @ $3.83
+2025-08-15 16:57:13,472 - INFO - 🎯 LTC/USDT: HOLD @ $117.61
+2025-08-15 16:57:13,475 - INFO - 🎯 ATOM/USDT: HOLD @ $4.39
+2025-08-15 16:57:13,481 - INFO - 🎯 UNI/USDT: HOLD @ $10.57
+2025-08-15 16:57:20,525 - INFO - ⏹️ Sessão interrompida pelo usuário
+2025-08-15 16:57:20,682 - INFO - 🔒 Fechando todas as posições...
+2025-08-15 16:57:21,006 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:58:35,194 - INFO - Binance AI Bot inicializado (TESTNET)
+2025-08-15 16:58:42,675 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 16:58:42,675 - INFO - 🚀 Iniciando sessão de trading por 24h
+2025-08-15 16:58:42,676 - INFO - 🧠 Inicializando sistemas AI...
+2025-08-15 16:58:47,480 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 17:00:19,900 - INFO - ✅ Sistema AI treinado para BTC/USDT | capital=10.00
+2025-08-15 17:01:52,202 - INFO - ✅ Sistema AI treinado para ETH/USDT | capital=10.00
+2025-08-15 17:02:46,555 - INFO - ✅ Sistema AI treinado para BNB/USDT | capital=10.00
+2025-08-15 17:03:26,509 - INFO - ✅ Sistema AI treinado para SOL/USDT | capital=10.00
+2025-08-15 17:57:18,830 - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+2025-08-15 18:01:11,014 - INFO - Binance AI Bot inicializado (TESTNET)
+2025-08-15 18:01:18,504 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 18:01:18,505 - INFO - 🚀 Iniciando sessão de trading por 24h
+2025-08-15 18:01:18,505 - INFO - 🧠 Inicializando sistemas AI...
+2025-08-15 18:01:23,294 - ERROR - ❌ Erro ao obter saldo: binance {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}
+2025-08-15 18:03:32,737 - INFO - ✅ Sistema AI treinado para BTC/USDT | capital=10.00
+2025-08-15 18:05:57,899 - INFO - ✅ Sistema AI treinado para ETH/USDT | capital=10.00
+2025-08-15 18:09:28,902 - INFO - ✅ Sistema AI treinado para BNB/USDT | capital=10.00
+2025-08-15 18:13:52,860 - INFO - ✅ Sistema AI treinado para SOL/USDT | capital=10.00
+2025-08-15 18:16:54,750 - INFO - ✅ Sistema AI treinado para XRP/USDT | capital=10.00
