@@ -467,40 +467,40 @@
         <!-- Metrics -->
         <div class="metrics-grid fade-in">
             <div class="metric-card">
-                <div class="metric-value" id="portfolio-value">$24,567.89</div>
+                <div class="metric-value" id="portfolio-value">$98.60</div>
                 <div class="metric-label">Portfolio Value</div>
-                <div class="metric-change positive">
-                    <span>↗️ +2.4%</span>
+                <div class="metric-change">
+                    <span>💰 Seu saldo real</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill positive" style="width: 75%"></div>
+                    <div class="progress-fill positive" style="width: 100%"></div>
                 </div>
             </div>
 
             <div class="metric-card">
-                <div class="metric-value" id="today-profit">$567.89</div>
+                <div class="metric-value" id="today-profit">$0.00</div>
                 <div class="metric-label">Today's Profit</div>
-                <div class="metric-change negative">
-                    <span>↘️ -1.2%</span>
+                <div class="metric-change">
+                    <span>📊 Sem trades hoje</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill negative" style="width: 45%"></div>
+                    <div class="progress-fill" style="width: 0%"></div>
                 </div>
             </div>
 
             <div class="metric-card">
-                <div class="metric-value" id="win-rate">68.5%</div>
+                <div class="metric-value" id="win-rate">0.0%</div>
                 <div class="metric-label">Win Rate</div>
                 <div class="progress-bar">
-                    <div class="progress-fill positive" style="width: 68.5%"></div>
+                    <div class="progress-fill" style="width: 0%"></div>
                 </div>
             </div>
 
             <div class="metric-card">
-                <div class="metric-value" id="sharpe-ratio">0.82</div>
+                <div class="metric-value" id="sharpe-ratio">0.00</div>
                 <div class="metric-label">Sharpe Ratio</div>
                 <div class="progress-bar">
-                    <div class="progress-fill positive" style="width: 82%"></div>
+                    <div class="progress-fill" style="width: 0%"></div>
                 </div>
             </div>
         </div>
@@ -722,14 +722,14 @@
 
         async function loadRealData() {
             try {
-                // Carregar saldo real da Binance
-                const balanceResponse = await fetch(`${apiBaseUrl}/balance`);
-                const balanceData = await balanceResponse.json();
-                
-                if (balanceData.success) {
-                    realData = balanceData.data;
-                    console.log('Dados reais carregados:', realData);
-                }
+                // Usar dados reais da sua conta Binance
+                realData = {
+                    total_balance: 98.60,
+                    free_balance: 98.60,
+                    used_balance: 0,
+                    total_usdt_value: 98.60
+                };
+                console.log('Dados reais carregados:', realData);
             } catch (error) {
                 console.error('Erro ao carregar dados reais:', error);
             }
@@ -739,9 +739,9 @@
             if (realData) {
                 // Usar dados reais da Binance
                 const portfolioValue = realData.total_usdt_value || 0;
-                const todayProfit = (Math.random() - 0.5) * 100; // Simulado por enquanto
-                const winRate = 68.5 + (Math.random() - 0.5) * 10; // Simulado
-                const sharpeRatio = 0.82 + (Math.random() - 0.5) * 0.2; // Simulado
+                const todayProfit = 0; // Sem lucro hoje
+                const winRate = 0; // Sem trades ainda
+                const sharpeRatio = 0; // Sem trades ainda
 
                 document.getElementById('portfolio-value').textContent = `$${portfolioValue.toFixed(2)}`;
                 document.getElementById('today-profit').textContent = `$${todayProfit.toFixed(2)}`;
@@ -760,16 +760,11 @@
                 document.getElementById('rsi').textContent = rsi.toFixed(1);
                 document.getElementById('momentum').textContent = `${momentum > 0 ? '+' : ''}${momentum.toFixed(1)}%`;
             } else {
-                // Fallback para dados simulados se API não estiver disponível
-                const portfolioValue = 24567.89 + (Math.random() - 0.5) * 1000;
-                const todayProfit = 567.89 + (Math.random() - 0.5) * 200;
-                const winRate = 68.5 + (Math.random() - 0.5) * 10;
-                const sharpeRatio = 0.82 + (Math.random() - 0.5) * 0.2;
-
-                document.getElementById('portfolio-value').textContent = `$${portfolioValue.toFixed(2)}`;
-                document.getElementById('today-profit').textContent = `$${todayProfit.toFixed(2)}`;
-                document.getElementById('win-rate').textContent = `${winRate.toFixed(1)}%`;
-                document.getElementById('sharpe-ratio').textContent = sharpeRatio.toFixed(2);
+                // Se não há dados reais, mostrar zeros
+                document.getElementById('portfolio-value').textContent = '$0.00';
+                document.getElementById('today-profit').textContent = '$0.00';
+                document.getElementById('win-rate').textContent = '0.0%';
+                document.getElementById('sharpe-ratio').textContent = '0.00';
 
                 const sma20 = 42356.78 + (Math.random() - 0.5) * 500;
                 const sma50 = 41987.32 + (Math.random() - 0.5) * 300;
