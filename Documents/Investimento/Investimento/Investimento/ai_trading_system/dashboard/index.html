@@ -714,7 +714,10 @@
             Plotly.newPlot('trading-chart', [trace1, trace2, trace3, trace4], layout);
         }
 
-        const apiBaseUrl = 'http://localhost:5000/api';
+        // Use Railway URL in production, localhost in development
+        const apiBaseUrl = window.location.hostname === 'localhost' 
+            ? 'http://localhost:5000/api' 
+            : 'https://ai-trading-system-dashboard-production.up.railway.app/api';
         let realData = null;
 
         async function loadRealData() {
