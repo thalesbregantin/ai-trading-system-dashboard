@@ -1,0 +1,57 @@
+{
+  "verified_pairs": [
+    "BTC/USDT",
+    "ETH/USDT",
+    "BNB/USDT",
+    "SOL/USDT",
+    "XRP/USDT",
+    "ADA/USDT",
+    "DOT/USDT",
+    "DOGE/USDT",
+    "AVAX/USDT",
+    "LINK/USDT",
+    "UNI/USDT",
+    "FET/USDT",
+    "BAND/USDT",
+    "ATOM/USDT",
+    "LTC/USDT",
+    "BCH/USDT",
+    "ETC/USDT",
+    "FIL/USDT",
+    "VET/USDT",
+    "THETA/USDT",
+    "TRX/USDT",
+    "AAVE/USDT",
+    "MKR/USDT",
+    "COMP/USDT",
+    "SNX/USDT",
+    "SUSHI/USDT",
+    "1INCH/USDT"
+  ],
+  "total_pairs": 27,
+  "last_updated": "2025-08-18T15:44:02.559246",
+  "categories": {
+    "major_cryptos": [
+      "BTC/USDT",
+      "ETH/USDT",
+      "BNB/USDT",
+      "SOL/USDT",
+      "XRP/USDT",
+      "ADA/USDT"
+    ],
+    "defi_tokens": [
+      "UNI/USDT",
+      "AAVE/USDT",
+      "MKR/USDT",
+      "COMP/USDT",
+      "SNX/USDT",
+      "SUSHI/USDT",
+      "1INCH/USDT"
+    ],
+    "ai_ml_tokens": [
+      "FET/USDT",
+      "BAND/USDT"
+    ],
+    "gaming_metaverse": []
+  }
+}

@@ -1,0 +1,162 @@
+# ========================================
+# PYTHON - ARQUIVOS E DIRETÓRIOS
+# ========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ========================================
+# AMBIENTE VIRTUAL
+# ========================================
+.venv/
+venv/
+ENV/
+env/
+.venv.bak/
+venv.bak/
+
+# ========================================
+# ARQUIVOS DE CONFIGURAÇÃO SENSÍVEIS
+# ========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+config.py
+secrets.json
+credentials.json
+firebase-key.json
+*.key
+*.pem
+
+# ========================================
+# LOGS E DADOS TEMPORÁRIOS
+# ========================================
+logs/
+*.log
+*.log.*
+*.out
+*.pid
+*.seed
+*.pid.lock
+parallel_trades.jsonl
+trading_logs/
+data/temp/
+data/cache/
+*.tmp
+*.temp
+
+# ========================================
+# MODELOS E DADOS DE TREINAMENTO
+# ========================================
+models/*.h5
+models/*.pkl
+models/*.joblib
+models/checkpoints/
+models/saved_models/
+*.weights
+*.model
+training_data/
+datasets/
+data/raw/
+data/processed/
+
+# ========================================
+# RESULTADOS E RELATÓRIOS
+# ========================================
+results/
+reports/
+outputs/
+exports/
+*.csv
+*.xlsx
+*.json
+!verified_trading_pairs.json
+!requirements.txt
+
+# ========================================
+# IDE E EDITORES
+# ========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========================================
+# DOCKER E CONTAINERS
+# ========================================
+.dockerignore
+docker-compose.override.yml
+*.dockerfile
+Dockerfile.dev
+
+# ========================================
+# JUPYTER NOTEBOOKS
+# ========================================
+.ipynb_checkpoints/
+*.ipynb
+
+# ========================================
+# TESTES E COBERTURA
+# ========================================
+.coverage
+.pytest_cache/
+.tox/
+htmlcov/
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+
+# ========================================
+# SISTEMA DE ARQUIVOS
+# ========================================
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*.sublime-project
+*.sublime-workspace
+
+# ========================================
+# ARQUIVOS ESPECÍFICOS DO PROJETO
+# ========================================
+# Manter apenas os arquivos essenciais
+!README.md
+!requirements.txt
+!verified_trading_pairs.json
+!binance_optimization_guide.md
+!singapore_ai_trading_research.md
+!README_DOCKER.md
+
+# ========================================
+# BACKUP E TEMPORÁRIOS
+# ========================================
+backup/
+temp/
+tmp/
+cache/
