@@ -36,6 +36,13 @@ class ParallelTradingSystem:
         self.cache_last_update = None
         self.cache_update_interval = 3600  # 1 hora
         
+        # SISTEMA DE AUTO-AJUSTE INTELIGENTE
+        self.last_trade_time = None
+        self.consecutive_no_trades = 0
+        self.auto_adjustment_enabled = True
+        self.performance_history = []
+        self.adjustment_threshold_hours = 2  # Ajustar após 2h sem trades
+        
         # Configurar pares de trading
         self.trading_pairs = [
             'DOGE/USDT',   # Dogecoin - $0.21
@@ -63,25 +70,27 @@ class ParallelTradingSystem:
             'QTUM/USDT',   # Qtum - $3.20
         ]
         
-        # PARÂMETROS OTIMIZADOS BASEADOS NA DOCUMENTAÇÃO BINANCE
+        # PARÂMETROS OTIMIZADOS PELO ALGORITMO GENÉTICO v3.0
         self.parameters = {
-            'min_trade_value_usdt': 15.0,     # Mínimo $15 por trade (BINANCE MIN + MARGEM)
-            'max_trade_value_usdt': 30.0,     # Máximo $30 por trade (OTIMIZADO)
-            'trade_percentage': 0.30,         # 30% do saldo por trade (MAIS AGRESSIVO)
+            'min_trade_value_usdt': 10.0,     # Mínimo $10 por trade
+            'max_trade_value_usdt': 50.0,     # Máximo $50 por trade (OTIMIZADO v3.0)
+            'trade_percentage': 0.099,        # 9.93% do saldo por trade (OTIMIZADO v3.0)
             'pump_threshold_1min': 0.5,       # Pump >0.5% em 1min
             'pump_threshold_5min': 0.3,       # Pump >0.3% em 5min
             'momentum_threshold': 0.2,        # Momentum 0.2%
-            'take_profit_percentage': 2.5,    # Take profit 2.5%
-            'stop_loss_percentage': 1.5,      # Stop loss 1.5%
-            'max_hold_time_minutes': 8,       # Máximo 8min por trade
+            'take_profit_percentage': 7.63,   # Take profit 7.63% (OTIMIZADO v3.0)
+            'stop_loss_percentage': 2.52,     # Stop loss 2.52% (OTIMIZADO v3.0)
+            'max_hold_time_minutes': 1920,    # Máximo 32 horas (OTIMIZADO v3.0)
             'max_active_trades': 3,           # Máximo 3 trades ativos
             'max_trades_per_cycle': 2,        # Máximo 2 trades por ciclo
-            'cycle_interval_minutes': 30,     # Ciclo a cada 30min (como sugerido)
-            'sma_short_period': 20,           # SMA 20 períodos
-            'sma_long_period': 50,            # SMA 50 períodos
+            'cycle_interval_minutes': 30,     # Ciclo a cada 30min
+            'sma_short_period': 49,           # SMA 49 períodos (OTIMIZADO v3.0)
+            'sma_long_period': 69,            # SMA 69 períodos (OTIMIZADO v3.0)
             'rsi_period': 14,                 # RSI 14 períodos
-            'rsi_overbought': 70,             # RSI sobrecomprado
-            'rsi_oversold': 30                # RSI sobrevendido
+            'rsi_overbought': 79,             # RSI sobrecomprado (OTIMIZADO v3.0)
+            'rsi_oversold': 48,               # RSI sobrevendido (OTIMIZADO v3.0)
+            'transaction_fee': 0.00056,       # Taxa 0.056% (OTIMIZADO v3.0)
+            'trade_amount_pct': 0.099         # 9.93% por trade (OTIMIZADO v3.0)
         }
         
         # Configurar diretórios
@@ -243,7 +252,7 @@ class ParallelTradingSystem:
             total_usdt += usdt_balance
             
             # Verificar outras moedas
-            for symbol in ['BTC', 'ETH', 'BNB', 'SOL', 'XRP', 'ADA', 'DOT', 'DOGE', 'AVAX', 'LINK', 'UNI', 'FET', 'BAND', 'AAVE', 'MKR', 'COMP', 'SNX', 'SUSHI', '1INCH', 'ATOM', 'LTC', 'BCH', 'ETC', 'FIL', 'VET', 'THETA', 'TRX']:
+            for symbol in ['BTC', 'ETH', 'BNB', 'SOL', 'XRP', 'ADA', 'DOT', 'DOGE', 'AVAX', 'LINK', 'UNI', 'FET', 'BAND', 'AAVE', 'MKR', 'COMP', 'SNX', 'SUSHI', '1INCH', 'ATOM', 'LTC', 'BCH', 'ETC', 'FIL', 'VET', 'THETA', 'TRX', 'BONK', 'USDC']:
                 amount = balance.get(symbol, {}).get('free', 0)
                 if amount > 0:
                     try:
@@ -277,7 +286,7 @@ class ParallelTradingSystem:
             usdt_balance = balance.get('USDT', {}).get('free', 0)
             total_usdt += usdt_balance
             
-            for symbol in ['BTC', 'ETH', 'BNB', 'SOL', 'XRP', 'ADA', 'DOT', 'DOGE', 'AVAX', 'LINK', 'UNI', 'FET', 'BAND', 'AAVE', 'MKR', 'COMP', 'SNX', 'SUSHI', '1INCH', 'ATOM', 'LTC', 'BCH', 'ETC', 'FIL', 'VET', 'THETA', 'TRX']:
+            for symbol in ['BTC', 'ETH', 'BNB', 'SOL', 'XRP', 'ADA', 'DOT', 'DOGE', 'AVAX', 'LINK', 'UNI', 'FET', 'BAND', 'AAVE', 'MKR', 'COMP', 'SNX', 'SUSHI', '1INCH', 'ATOM', 'LTC', 'BCH', 'ETC', 'FIL', 'VET', 'THETA', 'TRX', 'BONK', 'USDC']:
                 amount = balance.get(symbol, {}).get('free', 0)
                 if amount > 0:
                     try:
@@ -984,6 +993,13 @@ class ParallelTradingSystem:
                 print(f"   {best_pump['symbol']} - {best_pump['pump_reason']}")
                 print(f"   Preço: ${best_pump['current_price']:.4f}")
             
+            # Atualizar tracking de trades
+            self.update_trade_tracking(trades_executed)
+            
+            # Verificar se precisa fazer auto-ajuste
+            if self.auto_adjustment_enabled and self.check_auto_adjustment_needed():
+                self.perform_auto_adjustment()
+            
             # Atualizar saldo e mostrar resultado
             new_balance = self.get_balance()
             profit_loss = new_balance - total_usdt
@@ -1090,6 +1106,220 @@ class ParallelTradingSystem:
         except Exception as e:
             print(f"❌ Erro ao salvar training log: {e}")
     
+    def check_auto_adjustment_needed(self):
+        """Verificar se é necessário fazer auto-ajuste"""
+        try:
+            current_time = datetime.now()
+            
+            # Se nunca fez trade, não precisa ajustar ainda
+            if self.last_trade_time is None:
+                return False
+            
+            # Calcular tempo desde último trade
+            time_since_last_trade = (current_time - self.last_trade_time).total_seconds() / 3600
+            
+            # Verificar se passou do threshold
+            if time_since_last_trade >= self.adjustment_threshold_hours:
+                print(f"🤖 AUTO-AJUSTE NECESSÁRIO: {time_since_last_trade:.1f}h sem trades")
+                return True
+            
+            return False
+            
+        except Exception as e:
+            print(f"❌ Erro ao verificar auto-ajuste: {e}")
+            return False
+    
+    def analyze_market_conditions(self):
+        """Analisar condições atuais do mercado"""
+        try:
+            print("🔍 ANALISANDO CONDIÇÕES DE MERCADO...")
+            
+            market_analysis = {
+                'total_pairs': len(self.trading_pairs),
+                'available_pairs': 0,
+                'pumps_detected': 0,
+                'avg_volume_24h': 0,
+                'market_volatility': 0,
+                'trend_analysis': {}
+            }
+            
+            # Analisar cada par
+            for symbol in self.trading_pairs[:5]:  # Analisar apenas 5 pares para performance
+                try:
+                    # Verificar disponibilidade
+                    if self.check_pair_availability(symbol):
+                        market_analysis['available_pairs'] += 1
+                        
+                        # Obter dados do ticker
+                        ticker = self.exchange.fetch_ticker(symbol)
+                        if ticker:
+                            volume_24h = ticker.get('quoteVolume', 0)
+                            market_analysis['avg_volume_24h'] += volume_24h
+                            
+                            # Detectar pump
+                            pump = self.detect_pump(symbol)
+                            if pump:
+                                market_analysis['pumps_detected'] += 1
+                        
+                        # Análise de tendência
+                        context = self.analyze_market_context(symbol)
+                        if context:
+                            trend = context.get('trend', 'UNKNOWN')
+                            if trend not in market_analysis['trend_analysis']:
+                                market_analysis['trend_analysis'][trend] = 0
+                            market_analysis['trend_analysis'][trend] += 1
+                
+                except Exception as e:
+                    continue
+            
+            # Calcular médias
+            if market_analysis['available_pairs'] > 0:
+                market_analysis['avg_volume_24h'] /= market_analysis['available_pairs']
+            
+            return market_analysis
+            
+        except Exception as e:
+            print(f"❌ Erro na análise de mercado: {e}")
+            return None
+    
+    def suggest_parameter_adjustments(self, market_analysis):
+        """Sugerir ajustes de parâmetros baseado na análise"""
+        try:
+            print("🎯 SUGERINDO AJUSTES DE PARÂMETROS...")
+            
+            adjustments = {}
+            
+            # Ajuste 1: Se poucos pumps detectados, reduzir thresholds
+            if market_analysis['pumps_detected'] < 2:
+                adjustments['pump_threshold_1min'] = max(0.3, self.parameters['pump_threshold_1min'] * 0.8)
+                adjustments['pump_threshold_5min'] = max(0.2, self.parameters['pump_threshold_5min'] * 0.8)
+                adjustments['momentum_threshold'] = max(0.1, self.parameters['momentum_threshold'] * 0.8)
+                print(f"   📉 Reduzindo thresholds de pump (poucos pumps detectados)")
+            
+            # Ajuste 2: Se volume baixo, ajustar RSI
+            if market_analysis['avg_volume_24h'] < 5000000:  # Menos de $5M
+                adjustments['rsi_oversold'] = min(55, self.parameters['rsi_oversold'] + 5)
+                adjustments['rsi_overbought'] = max(65, self.parameters['rsi_overbought'] - 5)
+                print(f"   📊 Ajustando RSI (volume baixo)")
+            
+            # Ajuste 3: Se tendência bearish, ser mais conservador
+            bearish_count = market_analysis['trend_analysis'].get('BEARISH', 0)
+            if bearish_count > 2:
+                adjustments['take_profit_percentage'] = max(5.0, self.parameters['take_profit_percentage'] * 0.9)
+                adjustments['stop_loss_percentage'] = min(3.0, self.parameters['stop_loss_percentage'] * 1.1)
+                print(f"   🐻 Ajustando para mercado bearish")
+            
+            # Ajuste 4: Se poucos pares disponíveis, aumentar trade amount
+            if market_analysis['available_pairs'] < 10:
+                adjustments['trade_percentage'] = min(0.15, self.parameters['trade_percentage'] * 1.2)
+                print(f"   💰 Aumentando % por trade (poucos pares disponíveis)")
+            
+            return adjustments
+            
+        except Exception as e:
+            print(f"❌ Erro ao sugerir ajustes: {e}")
+            return {}
+    
+    def apply_parameter_adjustments(self, adjustments):
+        """Aplicar ajustes de parâmetros"""
+        try:
+            if not adjustments:
+                print("   ⚪ Nenhum ajuste necessário")
+                return
+            
+            print("🔧 APLICANDO AJUSTES DE PARÂMETROS:")
+            
+            for param, new_value in adjustments.items():
+                old_value = self.parameters.get(param)
+                if old_value is not None:
+                    self.parameters[param] = new_value
+                    print(f"   📊 {param}: {old_value:.4f} → {new_value:.4f}")
+            
+            # Salvar ajustes no log
+            adjustment_log = {
+                'timestamp': datetime.now().isoformat(),
+                'type': 'parameter_adjustment',
+                'adjustments': adjustments,
+                'reason': 'no_trades_detected'
+            }
+            
+            log_file = self.logs_dir / 'auto_adjustments.jsonl'
+            with open(log_file, 'a', encoding='utf-8') as f:
+                f.write(json.dumps(adjustment_log) + '\n')
+            
+            print("✅ Ajustes aplicados e salvos!")
+            
+        except Exception as e:
+            print(f"❌ Erro ao aplicar ajustes: {e}")
+    
+    def trigger_retraining(self):
+        """Disparar re-treinamento se necessário"""
+        try:
+            print("🎓 VERIFICANDO NECESSIDADE DE RE-TREINAMENTO...")
+            
+            # Verificar se o treinamento está ativo
+            if self.training_active:
+                print("   ⚪ Treinamento já está ativo")
+                return
+            
+            # Verificar se passou muito tempo desde último trade
+            if self.consecutive_no_trades >= 4:  # 4 ciclos sem trades
+                print("🚀 DISPARANDO RE-TREINAMENTO AUTOMÁTICO...")
+                self.start_training_background()
+            
+        except Exception as e:
+            print(f"❌ Erro ao disparar re-treinamento: {e}")
+    
+    def perform_auto_adjustment(self):
+        """Executar auto-ajuste completo"""
+        try:
+            print("\n🤖 INICIANDO AUTO-AJUSTE INTELIGENTE")
+            print("=" * 50)
+            
+            # 1. Analisar condições de mercado
+            market_analysis = self.analyze_market_conditions()
+            if not market_analysis:
+                print("❌ Não foi possível analisar mercado")
+                return
+            
+            print(f"📊 ANÁLISE DE MERCADO:")
+            print(f"   🔍 Pares disponíveis: {market_analysis['available_pairs']}/{market_analysis['total_pairs']}")
+            print(f"   🚀 Pumps detectados: {market_analysis['pumps_detected']}")
+            print(f"   📈 Volume médio 24h: ${market_analysis['avg_volume_24h']:,.0f}")
+            print(f"   📊 Tendências: {market_analysis['trend_analysis']}")
+            
+            # 2. Sugerir ajustes
+            adjustments = self.suggest_parameter_adjustments(market_analysis)
+            
+            # 3. Aplicar ajustes
+            self.apply_parameter_adjustments(adjustments)
+            
+            # 4. Verificar re-treinamento
+            self.trigger_retraining()
+            
+            # 5. Resetar contadores
+            self.consecutive_no_trades = 0
+            
+            print("✅ AUTO-AJUSTE CONCLUÍDO!")
+            print("=" * 50)
+            
+        except Exception as e:
+            print(f"❌ Erro no auto-ajuste: {e}")
+    
+    def update_trade_tracking(self, trades_executed):
+        """Atualizar tracking de trades"""
+        try:
+            if trades_executed > 0:
+                self.last_trade_time = datetime.now()
+                self.consecutive_no_trades = 0
+                print(f"✅ Trade executado - resetando contadores")
+            else:
+                self.consecutive_no_trades += 1
+                print(f"📊 Ciclo sem trades: {self.consecutive_no_trades} consecutivos")
+            
+        except Exception as e:
+            print(f"❌ Erro ao atualizar tracking: {e}")
+    
     def start_parallel_system(self, trading_interval=2, start_training=True):
         """Iniciar sistema paralelo"""
         print(f"🚀 INICIANDO SISTEMA PARALLEL!")
@@ -1099,6 +1329,7 @@ class ParallelTradingSystem:
         print(f"💰 Trade máximo: ${self.parameters['max_trade_value_usdt']}")
         print(f"📈 Porcentagem por trade: {self.parameters['trade_percentage']:.1%}")
         print(f"🔥 Pump threshold: {self.parameters['pump_threshold_1min']}%")
+        print(f"🤖 Auto-ajuste: {'✅' if self.auto_adjustment_enabled else '❌'} (a cada {self.adjustment_threshold_hours}h sem trades)")
         print("=" * 50)
         
         # Iniciar treinamento se solicitado

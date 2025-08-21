@@ -5,11 +5,12 @@ import os
 import json
 import time
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 import pandas as pd
 import numpy as np
 import yfinance as yf
+import ccxt
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 
@@ -33,21 +34,29 @@ class ExtendedWorkerTraining:
         for dir_path in [self.results_dir, self.data_dir, self.models_dir, self.logs_dir]:
             dir_path.mkdir(exist_ok=True)
         
-        # Configuração otimizada baseada na análise
+        # Configuração otimizada baseada na análise - MAIS AGRESSIVA
         self.optimized_params = {
-            'learning_rate': 0.0005,  # Reduzido para estabilidade
-            'gamma': 0.98,            # Aumentado para foco no longo prazo
+            'learning_rate': 0.001,   # Aumentado para aprendizado mais rápido
+            'gamma': 0.95,            # Reduzido para foco no curto prazo
             'epsilon_start': 1.0,
-            'epsilon_min': 0.05,      # Reduzido para menos exploração
-            'epsilon_decay': 0.9995,  # Decaimento mais lento
-            'batch_size': 64,         # Aumentado para melhor estabilidade
-            'memory_size': 20000,     # Aumentado para mais experiências
-            'episodes_per_pair': 50,  # Aumentado significativamente
-            'lookback_window': 60     # Janela maior para análise
+            'epsilon_min': 0.01,      # Muito reduzido para mais execução
+            'epsilon_decay': 0.999,   # Decaimento mais rápido
+            'batch_size': 32,         # Reduzido para mais agilidade
+            'memory_size': 10000,     # Reduzido para foco
+            'episodes_per_pair': 100, # Muito aumentado para mais oportunidades
+            'lookback_window': 60     # Janela maior para análise (CORRETO)
         }
         
-        # Pares de trading expandidos
+        # Pares de trading expandidos (formato Binance)
         self.trading_pairs = [
+            'BTC/USDT', 'ETH/USDT', 'BNB/USDT', 'SOL/USDT', 'XRP/USDT',
+            'ADA/USDT', 'DOGE/USDT', 'TRX/USDT', 'LINK/USDT', 'AVAX/USDT',
+            'MATIC/USDT', 'DOT/USDT', 'LTC/USDT', 'ATOM/USDT', 'UNI/USDT',
+            'NEAR/USDT', 'FTM/USDT', 'ALGO/USDT', 'VET/USDT', 'ICP/USDT'
+        ]
+        
+        # Mapeamento para Yahoo Finance (fallback)
+        self.yf_pairs = [
             'BTC-USD', 'ETH-USD', 'BNB-USD', 'SOL-USD', 'XRP-USD',
             'ADA-USD', 'DOGE-USD', 'TRX-USD', 'LINK-USD', 'AVAX-USD',
             'MATIC-USD', 'DOT-USD', 'LTC-USD', 'ATOM-USD', 'UNI-USD',
@@ -58,31 +67,68 @@ class ExtendedWorkerTraining:
         self.worker_results = {}
         self.global_metrics = []
         
+    def get_binance_data(self, symbol, timeframe='1h', limit=1000):
+        """Obtém dados da Binance via CCXT"""
+        try:
+            exchange = ccxt.binance({
+                'enableRateLimit': True,
+                'options': {
+                    'defaultType': 'spot'
+                }
+            })
+            
+            # Converter símbolo para formato Binance
+            binance_symbol = symbol.replace('-', '/')
+            
+            # Obter dados OHLCV
+            ohlcv = exchange.fetch_ohlcv(binance_symbol, timeframe, limit=limit)
+            
+            if ohlcv:
+                # Converter para DataFrame
+                df = pd.DataFrame(ohlcv, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+                df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
+                df.set_index('timestamp', inplace=True)
+                
+                return df
+            else:
+                return None
+                
+        except Exception as e:
+            logger.error(f"❌ Erro ao obter dados da Binance para {symbol}: {e}")
+            return None
+    
     def prepare_training_data(self):
         """Prepara dados de treinamento para todos os pares"""
         logger.info("📊 Preparando dados de treinamento estendido...")
         
         results = []
-        for symbol in self.trading_pairs:
+        for i, symbol in enumerate(self.trading_pairs):
             try:
                 logger.info(f"Baixando {symbol}...")
-                ticker = yf.Ticker(symbol)
-                # Dados de 1 ano com intervalo de 1 hora
-                data = ticker.history(period='1y', interval='1h')
+                
+                # Tentar Binance primeiro
+                data = self.get_binance_data(symbol)
+                
+                # Fallback para Yahoo Finance se Binance falhar
+                if data is None or len(data) < 100:
+                    logger.info(f"Fallback para Yahoo Finance: {self.yf_pairs[i]}")
+                    ticker = yf.Ticker(self.yf_pairs[i])
+                    data = ticker.history(period='1y', interval='1h')
                 
                 if not data.empty and len(data) > 100:
                     # Salvar dados
-                    data_file = self.data_dir / f"{symbol.replace('-', '_')}_extended.csv"
+                    symbol_clean = symbol.replace('/', '_').replace('-', '_')
+                    data_file = self.data_dir / f"{symbol_clean}_extended.csv"
                     data.to_csv(data_file)
                     
                     result = {
                         'symbol': symbol,
                         'data_points': len(data),
-                        'last_price': data['Close'].iloc[-1],
+                        'last_price': data['close'].iloc[-1] if 'close' in data.columns else data['Close'].iloc[-1],
                         'file': str(data_file),
                         'status': 'success'
                     }
-                    logger.info(f"✅ {symbol}: {len(data)} pontos, ${data['Close'].iloc[-1]:.2f}")
+                    logger.info(f"✅ {symbol}: {len(data)} pontos, ${result['last_price']:.2f}")
                 else:
                     result = {
                         'symbol': symbol,
@@ -174,15 +220,23 @@ class ExtendedWorkerTraining:
                 pair_result = self.simulate_optimized_training(symbol, config['training_params'])
                 
                 worker_results['pairs_trained'].append(pair_result)
-                worker_results['total_profit'] += pair_result['profit']
-                worker_results['total_trades'] += pair_result['trades']
+                
+                # Verificar se o resultado tem as chaves necessárias
+                if 'profit' in pair_result and 'trades' in pair_result:
+                    worker_results['total_profit'] += pair_result['profit']
+                    worker_results['total_trades'] += pair_result['trades']
+                else:
+                    logger.warning(f"⚠️ Resultado incompleto para {symbol}: {pair_result}")
                 
                 # Atualizar status
                 worker_results['status'] = f'training ({idx}/{total_pairs})'
                 with open(status_file, 'w') as f:
                     json.dump(worker_results, f, indent=2)
                 
-                logger.info(f"✅ Worker {worker_id} - {symbol}: Profit=${pair_result['profit']:.2f}, Win Rate={pair_result['win_rate']:.1f}%")
+                if 'profit' in pair_result and 'win_rate' in pair_result:
+                    logger.info(f"✅ Worker {worker_id} - {symbol}: Profit=${pair_result['profit']:.2f}, Win Rate={pair_result['win_rate']:.1f}%")
+                else:
+                    logger.info(f"⚠️ Worker {worker_id} - {symbol}: {pair_result.get('status', 'unknown')}")
                 
             except Exception as e:
                 logger.error(f"❌ Erro no Worker {worker_id} - {symbol}: {e}")
@@ -210,19 +264,48 @@ class ExtendedWorkerTraining:
         return worker_results
     
     def simulate_optimized_training(self, symbol, params):
-        """Simula treinamento otimizado para um par"""
+        """Simula backtesting realista sem lookahead bias"""
         # Carregar dados
         data_file = self.data_dir / f"{symbol.replace('-', '_')}_extended.csv"
         if not data_file.exists():
-            return {'symbol': symbol, 'status': 'no_data'}
+            return {
+                'symbol': symbol, 
+                'status': 'no_data',
+                'profit': 0,
+                'trades': 0,
+                'wins': 0,
+                'win_rate': 0,
+                'episodes': 0,
+                'avg_profit_per_trade': 0,
+                'transaction_fees': 0,
+                'stop_loss_pct': 0,
+                'take_profit_pct': 0
+            }
         
         data = pd.read_csv(data_file, index_col=0, parse_dates=True)
         
-        # Simular treinamento com parâmetros otimizados
+        # Normalizar nomes de colunas
+        if 'close' in data.columns:
+            data['Close'] = data['close']
+        if 'high' in data.columns:
+            data['High'] = data['high']
+        if 'low' in data.columns:
+            data['Low'] = data['low']
+        if 'volume' in data.columns:
+            data['Volume'] = data['volume']
+        
+        # Parâmetros de trading realistas
+        transaction_fee = 0.001  # 0.1% por operação (Binance)
+        stop_loss_pct = 0.02     # 2% stop loss
+        take_profit_pct = 0.03   # 3% take profit
+        max_hold_time = 24       # Máximo 24 horas por trade
+        
+        # Simular backtesting com parâmetros otimizados
         episodes = params['episodes_per_pair']
         total_profit = 0
         total_trades = 0
         total_wins = 0
+        returns_list = []  # Lista para armazenar retornos reais
         
         for episode in range(episodes):
             # Simular trading com parâmetros otimizados
@@ -231,34 +314,167 @@ class ExtendedWorkerTraining:
             trades_this_episode = 0
             wins_this_episode = 0
             
+            # Estado da posição atual
+            position = {
+                'type': None,        # 'long' ou 'short'
+                'entry_price': 0,    # Preço de entrada
+                'entry_time': 0,     # Índice de entrada
+                'amount': 0,         # Quantidade
+                'stop_loss': 0,      # Preço do stop loss
+                'take_profit': 0     # Preço do take profit
+            }
+            
             # Simular trades baseado nos dados históricos
             for i in range(100, len(data) - 1):
-                # Análise técnica simplificada
+                current_price = data['Close'].iloc[i]
+                current_time = i
+                
+                # Análise técnica (apenas dados disponíveis até o momento i)
                 close_prices = data['Close'].iloc[i-params['lookback_window']:i+1]
                 rsi = self.calculate_rsi(close_prices)
                 
-                # Decisão baseada em RSI e tendência
-                if rsi < 30:  # Sobrevendido
-                    if np.random.random() > params['epsilon_min']:
-                        # Compra
-                        trade_amount = current_balance * 0.1
-                        price_change = (data['Close'].iloc[i+1] - data['Close'].iloc[i]) / data['Close'].iloc[i]
-                        profit = trade_amount * price_change
-                        current_balance += profit
-                        trades_this_episode += 1
-                        if profit > 0:
-                            wins_this_episode += 1
+                # Calcular médias móveis
+                sma_20 = close_prices.rolling(window=20).mean().iloc[-1]
+                sma_50 = close_prices.rolling(window=50).mean().iloc[-1]
                 
-                elif rsi > 70:  # Sobrecomprado
-                    if np.random.random() > params['epsilon_min']:
-                        # Venda
-                        trade_amount = current_balance * 0.1
-                        price_change = (data['Close'].iloc[i] - data['Close'].iloc[i+1]) / data['Close'].iloc[i]
-                        profit = trade_amount * price_change
+                # Verificar se há posição aberta
+                if position['type'] is not None:
+                    # Verificar condições de saída
+                    exit_trade = False
+                    exit_price = current_price
+                    exit_reason = ""
+                    
+                    # Stop loss
+                    if position['type'] == 'long' and current_price <= position['stop_loss']:
+                        exit_trade = True
+                        exit_reason = "stop_loss"
+                    elif position['type'] == 'short' and current_price >= position['stop_loss']:
+                        exit_trade = True
+                        exit_reason = "stop_loss"
+                    
+                    # Take profit
+                    elif position['type'] == 'long' and current_price >= position['take_profit']:
+                        exit_trade = True
+                        exit_reason = "take_profit"
+                    elif position['type'] == 'short' and current_price <= position['take_profit']:
+                        exit_trade = True
+                        exit_reason = "take_profit"
+                    
+                    # Timeout
+                    elif current_time - position['entry_time'] >= max_hold_time:
+                        exit_trade = True
+                        exit_reason = "timeout"
+                    
+                    # Condição de RSI oposta (MAIS FLEXÍVEL)
+                    elif (position['type'] == 'long' and rsi > 75) or (position['type'] == 'short' and rsi < 25):
+                        exit_trade = True
+                        exit_reason = "rsi_signal"
+                    
+                    if exit_trade:
+                        # Calcular lucro/prejuízo realista
+                        if position['type'] == 'long':
+                            price_change = (exit_price - position['entry_price']) / position['entry_price']
+                        else:  # short
+                            price_change = (position['entry_price'] - exit_price) / position['entry_price']
+                        
+                        # Aplicar taxas de transação (entrada + saída)
+                        net_change = price_change - (2 * transaction_fee)
+                        profit = position['amount'] * net_change
+                        
                         current_balance += profit
                         trades_this_episode += 1
+                        returns_list.append(profit)  # Adicionar retorno real
                         if profit > 0:
                             wins_this_episode += 1
+                        
+                        logger.debug(f"Trade fechado: {position['type']} {symbol} - {exit_reason} - Profit: ${profit:.2f}")
+                        
+                        # Resetar posição
+                        position = {'type': None, 'entry_price': 0, 'entry_time': 0, 'amount': 0, 'stop_loss': 0, 'take_profit': 0}
+                
+                # Verificar condições de entrada (apenas se não há posição aberta)
+                if position['type'] is None:
+                    # Condições de entrada mais robustas
+                    trend_bullish = sma_20 > sma_50
+                    trend_bearish = sma_20 < sma_50
+                    
+                    # DEBUG: Logar condições a cada 100 candles
+                    if i % 100 == 0:
+                        logger.debug(f"DEBUG {symbol} - RSI: {rsi:.1f}, SMA20: {sma_20:.4f}, SMA50: {sma_50:.4f}, Trend: {'BULL' if trend_bullish else 'BEAR'}")
+                    
+                    # ESTRATÉGIA SIMPLIFICADA COM RSI + TENDÊNCIA
+                    # Long: RSI baixo + tendência de alta
+                    if rsi < 35 and trend_bullish and np.random.random() > 0.1:  # 90% de chance
+                        trade_amount = current_balance * 0.1
+                        position = {
+                            'type': 'long',
+                            'entry_price': current_price,
+                            'entry_time': current_time,
+                            'amount': trade_amount,
+                            'stop_loss': current_price * (1 - stop_loss_pct),
+                            'take_profit': current_price * (1 + take_profit_pct)
+                        }
+                        current_balance -= trade_amount
+                        logger.info(f"🚀 LONG ENTRY: {symbol} @ ${current_price:.4f} (RSI: {rsi:.1f})")
+                    
+                    # Short: RSI alto + tendência de baixa
+                    elif rsi > 65 and trend_bearish and np.random.random() > 0.1:  # 90% de chance
+                        trade_amount = current_balance * 0.1
+                        position = {
+                            'type': 'short',
+                            'entry_price': current_price,
+                            'entry_time': current_time,
+                            'amount': trade_amount,
+                            'stop_loss': current_price * (1 + stop_loss_pct),
+                            'take_profit': current_price * (1 - take_profit_pct)
+                        }
+                        current_balance -= trade_amount
+                        logger.info(f"🔻 SHORT ENTRY: {symbol} @ ${current_price:.4f} (RSI: {rsi:.1f})")
+                    
+                    # CONDIÇÕES ALTERNATIVAS (independente da tendência)
+                    # Long: RSI muito baixo
+                    elif rsi < 25 and np.random.random() > 0.2:  # 80% de chance
+                        trade_amount = current_balance * 0.05  # Trade menor
+                        position = {
+                            'type': 'long',
+                            'entry_price': current_price,
+                            'entry_time': current_time,
+                            'amount': trade_amount,
+                            'stop_loss': current_price * (1 - stop_loss_pct),
+                            'take_profit': current_price * (1 + take_profit_pct)
+                        }
+                        current_balance -= trade_amount
+                        logger.info(f"🚀 LONG ENTRY (RSI baixo): {symbol} @ ${current_price:.4f} (RSI: {rsi:.1f})")
+                    
+                    # Short: RSI muito alto
+                    elif rsi > 75 and np.random.random() > 0.2:  # 80% de chance
+                        trade_amount = current_balance * 0.05  # Trade menor
+                        position = {
+                            'type': 'short',
+                            'entry_price': current_price,
+                            'entry_time': current_time,
+                            'amount': trade_amount,
+                            'stop_loss': current_price * (1 + stop_loss_pct),
+                            'take_profit': current_price * (1 - take_profit_pct)
+                        }
+                        current_balance -= trade_amount
+                        logger.info(f"🔻 SHORT ENTRY (RSI alto): {symbol} @ ${current_price:.4f} (RSI: {rsi:.1f})")
+            
+            # Fechar posição final se ainda estiver aberta
+            if position['type'] is not None:
+                final_price = data['Close'].iloc[-1]
+                if position['type'] == 'long':
+                    price_change = (final_price - position['entry_price']) / position['entry_price']
+                else:
+                    price_change = (position['entry_price'] - final_price) / position['entry_price']
+                
+                net_change = price_change - (2 * transaction_fee)
+                profit = position['amount'] * net_change
+                current_balance += profit + position['amount']  # Retornar capital reservado
+                trades_this_episode += 1
+                returns_list.append(profit)  # Adicionar retorno real
+                if profit > 0:
+                    wins_this_episode += 1
             
             episode_profit = current_balance - initial_balance
             total_profit += episode_profit
@@ -272,6 +488,11 @@ class ExtendedWorkerTraining:
             'wins': total_wins,
             'win_rate': (total_wins / total_trades * 100) if total_trades > 0 else 0,
             'episodes': episodes,
+            'avg_profit_per_trade': total_profit / total_trades if total_trades > 0 else 0,
+            'transaction_fees': transaction_fee,
+            'stop_loss_pct': stop_loss_pct,
+            'take_profit_pct': take_profit_pct,
+            'returns': returns_list,  # Retornos reais para métricas precisas
             'status': 'success'
         }
     
@@ -283,6 +504,33 @@ class ExtendedWorkerTraining:
         rs = gain / loss
         rsi = 100 - (100 / (1 + rs))
         return rsi.iloc[-1] if not rsi.empty else 50
+    
+    def calculate_sharpe_ratio(self, returns, risk_free_rate=0.02):
+        """Calcula Sharpe Ratio"""
+        if len(returns) == 0:
+            return 0
+        
+        excess_returns = returns - risk_free_rate/252  # Assumindo 252 dias úteis
+        if excess_returns.std() == 0:
+            return 0
+        
+        return excess_returns.mean() / excess_returns.std() * np.sqrt(252)
+    
+    def calculate_max_drawdown(self, equity_curve):
+        """Calcula Maximum Drawdown"""
+        peak = equity_curve.expanding().max()
+        drawdown = (equity_curve - peak) / peak
+        return drawdown.min()
+    
+    def calculate_profit_factor(self, returns):
+        """Calcula Profit Factor baseado em retornos reais"""
+        if not returns:
+            return float('inf')
+        
+        gross_profit = sum(r for r in returns if r > 0)
+        gross_loss = abs(sum(r for r in returns if r < 0))
+        
+        return gross_profit / gross_loss if gross_loss > 0 else float('inf')
     
     def run_extended_training(self):
         """Executa treinamento estendido com workers"""
@@ -342,6 +590,31 @@ class ExtendedWorkerTraining:
         
         overall_win_rate = (total_wins / total_trades * 100) if total_trades > 0 else 0
         
+        # Calcular métricas avançadas
+        avg_profit_per_trade = total_profit / total_trades if total_trades > 0 else 0
+        
+        # Coletar todos os retornos reais para análise
+        all_returns = []
+        equity_curve = [1000]  # Começa com capital inicial de $1000
+        
+        for worker_result in self.worker_results.values():
+            for pair_result in worker_result['pairs_trained']:
+                if pair_result.get('status') == 'success' and 'returns' in pair_result:
+                    all_returns.extend(pair_result['returns'])
+                    # Construir curva de capital
+                    for pnl in pair_result['returns']:
+                        equity_curve.append(equity_curve[-1] + pnl)
+        
+        # Calcular métricas com dados reais
+        if all_returns:
+            equity_series = pd.Series(equity_curve)
+            returns_series = equity_series.pct_change().dropna()  # Retornos percentuais reais
+            sharpe_ratio = self.calculate_sharpe_ratio(returns_series)
+            max_drawdown = self.calculate_max_drawdown(equity_series)
+        else:
+            sharpe_ratio = 0
+            max_drawdown = 0
+        
         # Análise por worker
         worker_analysis = []
         for worker_id, result in self.worker_results.items():
@@ -363,11 +636,20 @@ class ExtendedWorkerTraining:
                 'total_trades': total_trades,
                 'total_wins': total_wins,
                 'overall_win_rate': overall_win_rate,
-                'average_profit_per_trade': total_profit / total_trades if total_trades > 0 else 0
+                'average_profit_per_trade': avg_profit_per_trade,
+                'sharpe_ratio': sharpe_ratio,
+                'max_drawdown': max_drawdown,
+                'profit_factor': self.calculate_profit_factor(all_returns) if all_returns else float('inf')
             },
             'worker_analysis': worker_analysis,
             'optimization_params': self.optimized_params,
-            'recommendations': self.generate_recommendations(total_profit, overall_win_rate)
+            'backtesting_params': {
+                'transaction_fee': 0.001,
+                'stop_loss_pct': 0.02,
+                'take_profit_pct': 0.03,
+                'max_hold_time': 24
+            },
+            'recommendations': self.generate_recommendations(total_profit, overall_win_rate, sharpe_ratio)
         }
         
         # Salvar relatório
@@ -382,17 +664,21 @@ class ExtendedWorkerTraining:
         logger.info(f"   - Lucro total: ${total_profit:.2f}")
         logger.info(f"   - Total de trades: {total_trades}")
         logger.info(f"   - Win rate geral: {overall_win_rate:.1f}%")
-        logger.info(f"   - Lucro médio por trade: ${final_report['overall_metrics']['average_profit_per_trade']:.2f}")
+        logger.info(f"   - Lucro médio por trade: ${avg_profit_per_trade:.2f}")
+        logger.info(f"   - Sharpe Ratio: {sharpe_ratio:.2f}")
+        logger.info(f"   - Max Drawdown: {max_drawdown:.2%}")
+        logger.info(f"   - Profit Factor: {final_report['overall_metrics']['profit_factor']:.2f}")
         
         # Recomendações
         logger.info("🎯 RECOMENDAÇÕES:")
         for rec in final_report['recommendations']:
             logger.info(f"   - {rec}")
     
-    def generate_recommendations(self, total_profit, win_rate):
+    def generate_recommendations(self, total_profit, win_rate, sharpe_ratio):
         """Gera recomendações baseadas nos resultados"""
         recommendations = []
         
+        # Análise de lucratividade
         if total_profit > 1000:
             recommendations.append("✅ Sistema muito lucrativo - Considere aumentar capital")
         elif total_profit > 500:
@@ -402,6 +688,7 @@ class ExtendedWorkerTraining:
         else:
             recommendations.append("❌ Sistema não lucrativo - Revisar estratégia")
         
+        # Análise de win rate
         if win_rate > 70:
             recommendations.append("✅ Win rate excelente - Sistema muito confiável")
         elif win_rate > 60:
@@ -411,10 +698,23 @@ class ExtendedWorkerTraining:
         else:
             recommendations.append("❌ Win rate baixo - Revisar estratégia")
         
-        if total_profit > 0 and win_rate > 60:
-            recommendations.append("🚀 Sistema pronto para trading real")
+        # Análise de Sharpe Ratio
+        if sharpe_ratio > 2.0:
+            recommendations.append("✅ Sharpe Ratio excelente - Retorno ajustado ao risco muito bom")
+        elif sharpe_ratio > 1.5:
+            recommendations.append("✅ Sharpe Ratio bom - Retorno ajustado ao risco adequado")
+        elif sharpe_ratio > 1.0:
+            recommendations.append("⚠️ Sharpe Ratio aceitável - Melhorar eficiência de risco")
         else:
-            recommendations.append("🔧 Sistema precisa de mais otimização")
+            recommendations.append("❌ Sharpe Ratio baixo - Revisar gerenciamento de risco")
+        
+        # Recomendação geral
+        if total_profit > 0 and win_rate > 60 and sharpe_ratio > 1.5:
+            recommendations.append("🚀 Sistema pronto para trading real - Todas as métricas são favoráveis")
+        elif total_profit > 0 and win_rate > 50:
+            recommendations.append("🔧 Sistema promissor - Otimizar parâmetros de risco")
+        else:
+            recommendations.append("🔧 Sistema precisa de mais otimização - Focar em estratégia e gerenciamento de risco")
         
         return recommendations
 
